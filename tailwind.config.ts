@@ -19,6 +19,11 @@ const config = {
     },
     extend: {
       colors: {
+        customprimary: "var(--custom-primary)",
+        custom: {
+          DEFAULT: "var(--custom)",
+          transparent: "var(--custom-transparent)"
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

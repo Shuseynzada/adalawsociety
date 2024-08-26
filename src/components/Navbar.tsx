@@ -3,32 +3,36 @@ import { useState } from "react";
 import { mainLogo } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { LanguageBox } from "./languageBox";
+import { Button } from "./ui/button";
+import { ArrowUpRight, Menu, XIcon } from "lucide-react";
 
 const menus = [
   {
     title: "Home",
     href: "/",
-    isActive: true,
   },
   {
     title: "About",
     href: "/about",
-    isActive: false,
   },
   {
-    title: "Services",
-    href: "/services",
-    isActive: false,
+    title: "Events",
+    href: "/events",
   },
-    {
-      title: "Contact",
-      href: "/contact",
-      isActive: false,
-    },
-
+  {
+    title: "Contact",
+    href: "/contact",
+  },
+  {
+    title: "Directors",
+    href: "/directors",
+  },
 ];
 
 const Navbar = () => {
+  const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -36,70 +40,44 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex py-5 px-10 justify-between items-center bg-primary">
-      <div className="flex items-center">
-        <Image
-          src={mainLogo}
-          alt="Law Society Logo"
-          className="outline outline-offset-4 rounded-full outline-gray-600"
-          width={60}
-          height={60}
-        />
-        <h1 className="ml-3 text-white font-bold text-lg">Law Society</h1>
-      </div>
-      <div className="hidden md:flex space-x-6">
-        {menus.map((menu, index) => (
-          <Link
-            key={index}
-            href={menu.href}
-            className={`text-white ${
-              menu.isActive ? "font-semibold" : "font-normal"
-            }`}
-          >
-            {menu.title}
+    <nav className="grid grid-cols-2 xl:grid-cols-3 px-20 shadow-lg mb-3 py-2">
+      <div className="hidden xl:flex items-center justfiy-end xl:justify-start gap-5">
+        {menus.map((menu) => (
+          <Link className="" href={menu.href}>
+            <div
+              className={`hover:bg-custom-transparent p-2 rounded-md ${
+                pathName == menu.href ? "bg-customprimary text-white" : ""
+              }`}
+            >
+              {menu.title}
+            </div>
           </Link>
         ))}
       </div>
-      <button
-        className="md:hidden text-white focus:outline-none"
-        onClick={toggleMenu}
-      >
-        {/* Hamburger Icon */}
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-          ></path>
-        </svg>
-      </button>
-
-      {/* Collapsible Menu */}
-      <div
-        className={`${
-          isOpen ? "block" : "hidden"
-        } md:hidden absolute top-16 left-0 w-full bg-primary shadow-md`}
-      >
-        <ul className="flex flex-col items-center space-y-4 py-4">
-          {menus.map((menu, index) => (
-            <li key={index}>
-              <Link
-                href={menu.href}
-                className={`text-white ${
-                  menu.isActive ? "font-semibold" : "font-normal"
-                }`}
-              >
-                {menu.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <div className="xl:hidden flex justify-start xl:justify-center items-center">
+        <Button variant={"outline"} onClick={()=>toggleMenu()}>{!isOpen ? <Menu /> : <XIcon />}</Button>
+      </div>
+      <div className="flex items-center justify-center">
+        <Image
+          src={mainLogo}
+          alt="Law Society Logo"
+          className="outline outline-offset-4 rounded-full bg-[#F8F8FF] p-1"
+          width={90}
+          height={90}
+        />
+      </div>
+      <div className="flex items-center col-span-2 xl:col-span-1 justify-start xl:justify-end gap-5">
+        <LanguageBox />
+        {pathName != "/competitions" ? (
+          <Link href={"/competitions"}>
+            <Button className="bg-custom">
+              Competitions
+              <ArrowUpRight />
+            </Button>
+          </Link>
+        ) : (
+          <></>
+        )}
       </div>
     </nav>
   );

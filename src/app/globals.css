@@ -4,6 +4,9 @@
 
 @layer base {
   :root {
+    --custom-primary: #336376;
+    --custom: #ae4a5e;
+    --custom-transparent: #ae4a5eb2;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -32,6 +35,9 @@
   }
 
   .dark {
+    --custom-primary: #336376;
+    --custom: #ae4a5e;
+    --custom-transparent: #ae4a5eb2;
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -59,11 +65,26 @@
   }
 }
 
+.heroBackground {
+  background-image: url("../assets/placeholder-image.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply font-semibold text-4xl;
+  }
+
+  h3 {
+    @apply font-semibold text-2xl;
   }
 }
