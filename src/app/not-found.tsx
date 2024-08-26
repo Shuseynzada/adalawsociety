@@ -1,11 +1,9 @@
-"use client"
-import Navbar from "@/components/Navbar";
+"use client";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-function notFound() {
-
-  const pathName = usePathname()
+function NotFound() {
+  const pathName = usePathname();
 
   return (
     <div>
@@ -14,4 +12,4 @@ function notFound() {
   );
 }
 
-export default notFound;
+export default NotFound;

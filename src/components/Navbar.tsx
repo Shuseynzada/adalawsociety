@@ -42,8 +42,8 @@ const Navbar = () => {
   return (
     <nav className="grid grid-cols-2 xl:grid-cols-3 px-20 shadow-lg mb-3 py-2">
       <div className="hidden xl:flex items-center justfiy-end xl:justify-start gap-5">
-        {menus.map((menu) => (
-          <Link className="" href={menu.href}>
+        {menus.map((menu,i) => (
+          <Link className="" href={menu.href} key={i}>
             <div
               className={`hover:bg-custom-transparent p-2 rounded-md ${
                 pathName == menu.href ? "bg-customprimary text-white" : ""
@@ -55,7 +55,9 @@ const Navbar = () => {
         ))}
       </div>
       <div className="xl:hidden flex justify-start xl:justify-center items-center">
-        <Button variant={"outline"} onClick={()=>toggleMenu()}>{!isOpen ? <Menu /> : <XIcon />}</Button>
+        <Button variant={"outline"} onClick={() => toggleMenu()}>
+          {!isOpen ? <Menu /> : <XIcon />}
+        </Button>
       </div>
       <div className="flex items-center justify-center">
         <Image
