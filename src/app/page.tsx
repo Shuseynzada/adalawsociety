@@ -28,7 +28,7 @@ export default function Home() {
 
 function Hero() {
   return (
-    <div className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full">
+    <div id="home" className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full">
       <h1>ADA LAW SOCIETY</h1>
       <p className="text-xl max-w-md">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
@@ -45,7 +45,7 @@ function Hero() {
 
 function About() {
   return (
-    <div className="flex flex-col-reverse sm:grid grid-cols-2 w-full my-8">
+    <div id="about" className="flex flex-col-reverse sm:grid grid-cols-2 w-full my-8">
       <Image
         src={placeholderImg}
         alt={"about section banner"}
@@ -64,11 +64,13 @@ function About() {
 
 function News() {
   return (
-    <div className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto">
+    <div id="news" className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto">
       <div className="flex justify-between px-6">
         <h1>News</h1>
         <Button variant="outline" className="shadow-md">
+          <Link href={"/news"}>
           View All
+          </Link>
         </Button>
       </div>
       <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
@@ -93,7 +95,7 @@ function News() {
 
 function Contact() {
   return (
-    <div className="text-center mb-10 mt-5">
+    <div id="contact" className="text-center mb-10 mt-5">
       <h1>Contact us</h1>
       <p className="">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

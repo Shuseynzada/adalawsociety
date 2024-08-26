@@ -6,7 +6,7 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <div className="px-20 mt-5 pt-2 shadow-inner">
+    <div className="px-20 mt-5 pt-10 shadow-inner">
       <div className="grid sm:grid-cols-2">
         <div>
           <Image
