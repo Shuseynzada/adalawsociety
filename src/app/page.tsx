@@ -1,19 +1,19 @@
 import { eventPicture1, placeholderImg } from "@/assets";
 import EventCard from "@/components/NewsCard";
 import { Button } from "@/components/ui/button";
-import { Mail, MapPin, Phone, Pin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Event1 = {
   id: 1,
   title: "ADA LAW SOCIETY'S FIRST EVENT",
-  date: new Date(2024,7,26),
+  date: new Date(2024, 7, 26),
   location: "New York, USA",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
   picture: eventPicture1,
-}
+};
 
 export default function Home() {
   return (
@@ -67,17 +67,31 @@ function News() {
     <div className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto">
       <div className="flex justify-between px-6">
         <h1>News</h1>
-        <Button variant="outline" className="shadow-md">View All</Button>
+        <Button variant="outline" className="shadow-md">
+          View All
+        </Button>
       </div>
       <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
-        <EventCard id={Event1.id} title={Event1.title} description={Event1.description} date={Event1.date} picture={Event1.picture}/>
-        <EventCard id={Event1.id} title={Event1.title} description={Event1.description} date={Event1.date} picture={null}/>
+        <EventCard
+          id={Event1.id}
+          title={Event1.title}
+          description={Event1.description}
+          date={Event1.date}
+          picture={Event1.picture}
+        />
+        <EventCard
+          id={Event1.id}
+          title={Event1.title}
+          description={Event1.description}
+          date={Event1.date}
+          picture={null}
+        />
       </div>
     </div>
   );
 }
 
-function Contact(){
+function Contact() {
   return (
     <div className="text-center mb-10 mt-5">
       <h1>Contact us</h1>
@@ -86,21 +100,35 @@ function Contact(){
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-center gap-10 mt-10">
         <div className="flex flex-col gap-1 justify-center items-center">
-          <Mail className="size-16 bg-custom p-3 text-white rounded-full"/>
+          <Mail className="size-16 bg-custom p-3 text-white rounded-full" />
           <h3 className="p-0 m-0">Email</h3>
-          <Button variant="link" className="text-customprimary text-lg"><Link href="mailto:example@gmail.com">example@gmail.com</Link></Button>
+          <Button variant="link" className="text-customprimary text-lg">
+            <Link href="mailto:example@gmail.com">example@gmail.com</Link>
+          </Button>
         </div>
         <div className="flex flex-col gap-1 justify-center items-center">
-          <Phone className="size-16 bg-custom p-3 text-white rounded-full"/>
+          <Phone className="size-16 bg-custom p-3 text-white rounded-full" />
           <h3 className="p-0 m-0">Phone</h3>
-          <Button variant="link" className="text-customprimary text-lg"><Link href="tel:+994500000000">+994 50 000 00 00</Link></Button>
+          <Button variant="link" className="text-customprimary text-lg">
+            <Link href="tel:+994500000000">+994 50 000 00 00</Link>
+          </Button>
         </div>
         <div className="flex flex-col sm:col-span-2 lg:col-span-1 gap-1 justify-center items-center">
-          <MapPin className="size-16 bg-custom p-3 text-white rounded-full"/>
+          <MapPin className="size-16 bg-custom p-3 text-white rounded-full" />
           <h3 className="p-0 m-0">Office</h3>
-          <Button variant="link" className="text-customprimary text-lg text-wrap"><Link href="https://maps.app.goo.gl/ZWhfMzsPijn67dJK9" target="_blank">Ahmadbey Aghaoglu str. 61 Baku, 1008</Link></Button>
+          <Button
+            variant="link"
+            className="text-customprimary text-lg text-wrap"
+          >
+            <Link
+              href="https://maps.app.goo.gl/ZWhfMzsPijn67dJK9"
+              target="_blank"
+            >
+              Ahmadbey Aghaoglu str. 61 Baku, 1008
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }

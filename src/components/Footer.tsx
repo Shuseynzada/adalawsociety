@@ -6,7 +6,7 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <div className="px-20 mt-5">
+    <div className="px-20 mt-5 pt-2 shadow-inner">
       <div className="grid sm:grid-cols-2">
         <div>
           <Image
@@ -37,7 +37,7 @@ const Footer = () => {
             consent to receive updates from our company.
           </span>
         </div>
-        <div className="px-20">
+        <div className="sm:px-10 md:px-20">
           <h3>Follow us</h3>
           <ul className="p-2 flex flex-col gap-4">
             <li className="flex gap-3"><Facebook/> Facebook </li>
