@@ -1,5 +1,5 @@
 import { eventPicture1, placeholderImg } from "@/assets";
-import EventCard from "@/components/EventCard";
+import EventCard from "@/components/NewsCard";
 import { Button } from "@/components/ui/button";
 import { Mail, MapPin, Phone, Pin } from "lucide-react";
 import Image from "next/image";
@@ -20,7 +20,7 @@ export default function Home() {
     <>
       <Hero />
       <About />
-      <Events />
+      <News />
       <Contact />
     </>
   );
@@ -62,11 +62,11 @@ function About() {
   );
 }
 
-function Events() {
+function News() {
   return (
-    <div className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6">
+    <div className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto">
       <div className="flex justify-between px-6">
-        <h1>Events</h1>
+        <h1>News</h1>
         <Button variant="outline" className="shadow-md">View All</Button>
       </div>
       <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
