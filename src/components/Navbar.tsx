@@ -3,7 +3,7 @@ import { useState } from "react";
 import { mainLogo } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { LanguageBox } from "./languageBox";
 import { Button } from "./ui/button";
 import { ArrowUpRight, Menu, XIcon } from "lucide-react";
@@ -26,8 +26,8 @@ const menus = [
     href: "/contact",
   },
   {
-    title: "Directors",
-    href: "/directors",
+    title: "ALS Team",
+    href: "/team",
   },
 ];
 
@@ -40,12 +40,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="grid grid-cols-2 xl:grid-cols-3 px-20 shadow-lg mb-3 py-2">
-      <div className="hidden xl:flex items-center justfiy-end xl:justify-start gap-5">
-        {menus.map((menu,i) => (
+    <nav className="grid grid-cols-2 xl:grid-cols-3 px-12 sm:px-20 shadow-lg mb-3 py-2 w-full">
+      <div className="hidden xl:flex items-center justify-end xl:justify-start gap-4">
+        {menus.map((menu, i) => (
           <Link className="" href={menu.href} key={i}>
             <div
-              className={`hover:bg-custom-transparent p-2 rounded-md ${
+              className={`hover:bg-custom-transparent p-2 rounded-md text-center ${
                 pathName == menu.href ? "bg-customprimary text-white" : ""
               }`}
             >
@@ -54,8 +54,8 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
-      <div className="xl:hidden flex justify-start xl:justify-center items-center">
-        <Button variant={"outline"} onClick={() => toggleMenu()}>
+      <div className="xl:hidden flex justify-start xl:justify-center items-center z-30">
+        <Button variant={"outline"} className="" onClick={() => toggleMenu()}>
           {!isOpen ? <Menu /> : <XIcon />}
         </Button>
       </div>
@@ -81,6 +81,25 @@ const Navbar = () => {
           <></>
         )}
       </div>
+
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white z-20 shadow-lg">
+          <div className="flex flex-col items-center py-4">
+            {menus.map((menu, i) => (
+              <Link className="" href={menu.href} key={i}>
+                <div
+                  className={`hover:bg-custom-transparent p-3 px-10 rounded-md ${
+                    pathName == menu.href ? "bg-customprimary text-white" : ""
+                  }`}
+                >
+                  {menu.title}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

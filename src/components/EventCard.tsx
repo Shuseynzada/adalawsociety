@@ -2,6 +2,7 @@ import { placeholderImg } from "@/assets";
 import { StaticImageData } from "next/image";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { getDayName, getMonthName } from "@/lib/utils";
 
 const EventCard = ({
   id,
@@ -17,18 +18,29 @@ const EventCard = ({
   date: Date;
 }) => {
   return (
-    <div className="border border-[1D1D1D] w-[500px] min-h-[400px] rounded-md overflow-hidden shadow-md">
-      <Image
-        src={picture ? picture : placeholderImg}
-        alt="Event picture"
-        className="w-full h-[60%] shadow-sm object-cover"
-      />
-      <div className="flex flex-col justify-center gap-2 items-start p-3 h-[40%]">
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <Button variant="link" className="p-0">View event</Button>
+    <>
+      <div className="border border-[1D1D1D] max-w-[500px] rounded-md shadow-md relative">
+        <div className="absolute right-5 top-5 w-[90px] h-[90px] bg-white z-10 flex flex-col justify-center items-center border">
+          <span className="block text-sm font-light">{getDayName(date,"en-EN")}</span>
+          <span className="block text-lg font-bold">{date.getDate()}</span>
+          <span className="block text-sm font-light">
+            {getMonthName(date,"en-EN")} {date.getFullYear()}
+          </span>
+        </div>
+        <Image
+          src={picture ? picture : placeholderImg}
+          alt="Event picture"
+          className="w-full h-[250px] shadow-sm object-cover"
+        />
+        <div className="flex flex-col justify-center gap-2 items-start p-3 max-h-[250px]">
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <Button variant="link" className="p-0">
+            View event
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
