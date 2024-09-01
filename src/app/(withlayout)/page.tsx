@@ -68,7 +68,7 @@ function News() {
       <div className="flex justify-between px-6">
         <h1>News</h1>
         <Button variant="outline" className="shadow-md">
-          <Link href={"/news"}>
+          <Link href="/news">
           View All
           </Link>
         </Button>

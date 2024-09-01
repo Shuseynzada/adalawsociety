@@ -6,8 +6,8 @@ function NotFound() {
   const pathName = usePathname();
 
   return (
-    <div>
-      {pathName}
+    <div className="text-center m-20 font-medium text-xl">
+      Page not found
     </div>
   );
 }
