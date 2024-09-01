@@ -1,14 +1,11 @@
-import db from "@/db/db";
-async function getNewsData() {
-  const data = await db.news.count();
-}
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 async function page() {
-  const newsData = await getNewsData();
-
-  console.log(newsData);
-
-  return <div>Admin</div>;
+  return <div>
+    <h1>Admin Page</h1>
+    <Button className="text-lg"><Link href="admin/news">News</Link></Button>
+  </div>;
 }
 
 export default page;

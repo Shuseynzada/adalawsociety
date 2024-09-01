@@ -3,14 +3,19 @@ import { Button } from "@/components/ui/button";
 import { News } from "@prisma/client";
 import React, { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import { addNews } from "../_actions/news";
+import { addNews, updateNews } from "../_actions/news";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 
 const NewForm = ({ news }: { news?: News | null }) => {
-  const [error, action] = useFormState(addNews, {});
+  const [error, action] = useFormState(
+    news == null ? addNews : updateNews.bind(null, news.id),
+    {}
+  );
 
+
+  console.log(news);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +36,7 @@ const NewForm = ({ news }: { news?: News | null }) => {
           required
           defaultValue={news?.title || ""}
         />
-        {error.title && <div className="text-destructive">{error.title}</div>}
+        {error?.title && <div className="text-destructive">{error.title}</div>}
       </div>
       <div className="space-y-2">
         <Label htmlFor="description">Description</Label>
@@ -42,7 +47,7 @@ const NewForm = ({ news }: { news?: News | null }) => {
           required
           defaultValue={news?.description || ""}
         />
-        {error.description && (
+        {error?.description && (
           <div className="text-destructive">{error.description}</div>
         )}
       </div>
@@ -55,7 +60,7 @@ const NewForm = ({ news }: { news?: News | null }) => {
           required
           defaultValue={news?.date?.toISOString().split("T")[0] || ""}
         />
-        {error.date && <div className="text-destructive">{error.date}</div>}
+        {error?.date && <div className="text-destructive">{error.date}</div>}
       </div>
       <div className="space-y-2">
         <Label htmlFor="image">Image</Label>
@@ -76,7 +81,7 @@ const NewForm = ({ news }: { news?: News | null }) => {
             />
           </div>
         )}
-        {news != null && (
+        {news != null && !selectedImage && (
           <Image
             src={news.picturePath}
             height={400}
@@ -84,7 +89,7 @@ const NewForm = ({ news }: { news?: News | null }) => {
             alt="New banner image"
           />
         )}
-        {error.image && <div className="text-destructive">{error.image}</div>}
+        {error?.image && <div className="text-destructive">{error.image}</div>}
       </div>
       <SubmitButton />
     </form>

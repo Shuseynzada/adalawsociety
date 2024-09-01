@@ -6,13 +6,11 @@ import { Button } from "./ui/button";
 import { getDayName, getMonthName } from "@/lib/utils";
 
 const NewsCard = ({
-  id,
   title,
   description,
   picture,
   date,
 }: {
-  id: number;
   title: string;
   description: string;
   picture: string | StaticImageData | null | undefined;
