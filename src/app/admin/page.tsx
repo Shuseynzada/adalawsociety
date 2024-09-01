@@ -1,11 +1,14 @@
-import React from 'react'
-
-const page = () => {
-  return (
-    <div>
-      Admin
-    </div>
-  )
+import db from "@/db/db";
+async function getNewsData() {
+  const data = await db.news.count();
 }
 
-export default page
+async function page() {
+  const newsData = await getNewsData();
+
+  console.log(newsData);
+
+  return <div>Admin</div>;
+}
+
+export default page;

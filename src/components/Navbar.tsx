@@ -11,7 +11,7 @@ import { ArrowUpRight, Menu, XIcon } from "lucide-react";
 const menus = [
   {
     title: "Home",
-    href: "/#home",
+    href: "/",
   },
   {
     title: "About",
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("home"); // Set initial state to "home"
+  const [activeSection, setActiveSection] = useState<string>("home");
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -43,12 +43,11 @@ const Navbar: React.FC = () => {
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
-    setIsSticky(scrollTop > 100);
+    setIsSticky(scrollTop > 90);
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -65,47 +64,35 @@ const Navbar: React.FC = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActiveSection(entry.target.id); // Update activeSection when section enters viewport
+          setActiveSection(entry.target.id);
         }
       });
     }, options);
 
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
-
+    sections.forEach((section) => observer.observe(section));
     return () => {
       sections.forEach((section) => observer.unobserve(section));
     };
   }, []);
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-
-    const url = new URL(href, window.location.href); // Parse the URL
-
-    // Extract the hash from the URL (i.e., #about)
-    const targetId = url.hash;
-
-    if (targetId) {
-      const targetElement = document.querySelector(targetId);
+    if (href.startsWith("/#")) {
+      e.preventDefault();
+      const targetId = href.split("#")[1];
+      const targetElement = document.getElementById(targetId);
 
       if (targetElement) {
         const offset = -120; // Adjust this offset as needed
         const topPosition =
           targetElement.getBoundingClientRect().top + window.scrollY + offset;
 
-        // Smooth scroll to the position
         window.scrollTo({
           top: topPosition,
           behavior: "smooth",
         });
 
-        // Update the URL without reloading the page
+        setActiveSection(targetId);
         window.history.pushState({}, "", href);
-
-        // Manually set active section after click
-        setActiveSection(targetId.replace("#", ""));
       }
     }
   };
@@ -132,19 +119,16 @@ const Navbar: React.FC = () => {
             href={menu.href}
             key={i}
             onClick={(e) => handleClick(e, menu.href)}
+            className={`hover:bg-custom-transparent p-2 rounded-md text-center ${
+              isActiveMenu(menu.href) ? "bg-customprimary text-white" : ""
+            }`}
           >
-            <div
-              className={`hover:bg-custom-transparent p-2 rounded-md text-center ${
-                isActiveMenu(menu.href) ? "bg-customprimary text-white" : ""
-              }`}
-            >
-              {menu.title}
-            </div>
+            {menu.title}
           </a>
         ))}
       </div>
       <div className="xl:hidden flex justify-start xl:justify-center items-center z-30">
-        <Button variant={"outline"} className="" onClick={() => toggleMenu()}>
+        <Button variant={"outline"} onClick={toggleMenu}>
           {!isOpen ? <Menu /> : <XIcon />}
         </Button>
       </div>
@@ -181,14 +165,11 @@ const Navbar: React.FC = () => {
                   handleClick(e, menu.href);
                   setIsOpen(false);
                 }}
+                className={`hover:bg-custom-transparent p-3 px-10 rounded-md ${
+                  isActiveMenu(menu.href) ? "bg-customprimary text-white" : ""
+                }`}
               >
-                <div
-                  className={`hover:bg-custom-transparent p-3 px-10 rounded-md ${
-                    isActiveMenu(menu.href) ? "bg-customprimary text-white" : ""
-                  }`}
-                >
-                  {menu.title}
-                </div>
+                {menu.title}
               </a>
             ))}
           </div>

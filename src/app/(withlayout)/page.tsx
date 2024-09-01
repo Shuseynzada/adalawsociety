@@ -1,5 +1,5 @@
 import { eventPicture1, placeholderImg } from "@/assets";
-import EventCard from "@/components/NewsCard";
+import NewsCard from "@/components/NewsCard";
 import { Button } from "@/components/ui/button";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
@@ -9,7 +9,6 @@ const Event1 = {
   id: 1,
   title: "ADA LAW SOCIETY'S FIRST EVENT",
   date: new Date(2024, 7, 26),
-  location: "New York, USA",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
   picture: eventPicture1,
@@ -74,14 +73,14 @@ function News() {
         </Button>
       </div>
       <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
-        <EventCard
+        <NewsCard
           id={Event1.id}
           title={Event1.title}
           description={Event1.description}
           date={Event1.date}
           picture={Event1.picture}
         />
-        <EventCard
+        <NewsCard
           id={Event1.id}
           title={Event1.title}
           description={Event1.description}
