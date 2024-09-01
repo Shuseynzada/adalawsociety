@@ -1,46 +1,9 @@
-import { placeholderImg } from "@/assets";
 import NewsCard from "@/components/NewsCard";
+import db from "@/db/db";
 import React from "react";
 
-const newsArr = [
-  {
-    id: 0,
-    title: "Event 1",
-    description: "Description for Event 1",
-    picture: placeholderImg,
-    date: new Date(),
-  },
-  {
-    id: 1,
-    title: "Event 1",
-    description: "Description for Event 1",
-    picture: placeholderImg,
-    date: new Date(),
-  },
-  {
-    id: 1,
-    title: "Event 1",
-    description: "Description for Event 1",
-    picture: placeholderImg,
-    date: new Date(),
-  },
-  {
-    id: 2,
-    title: "Event 1",
-    description: "Description for Event 1",
-    picture: placeholderImg,
-    date: new Date(),
-  },
-  {
-    id: 3,
-    title: "Event 1",
-    description: "Description for Event 1",
-    picture: placeholderImg,
-    date: new Date(),
-  },
-];
-
-const NewsPage = () => {
+const NewsPage = async () => {
+  const newsArr = await db.news.findMany();
   return (
     <div className="text-center flex flex-col justify-center items-center">
       <h1>News</h1>
@@ -51,7 +14,7 @@ const NewsPage = () => {
             id={0}
             title={news.title}
             description={news.description}
-            picture={news.picture}
+            picture={news.picturePath}
             date={news.date}
           />
         ))}

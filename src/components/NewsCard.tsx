@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { placeholderImg } from "@/assets";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Button } from "./ui/button";
 import { getDayName, getMonthName } from "@/lib/utils";
 
@@ -15,7 +15,7 @@ const NewsCard = ({
   id: number;
   title: string;
   description: string;
-  picture: string | null | undefined;
+  picture: string | StaticImageData | null | undefined;
   date: Date;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
