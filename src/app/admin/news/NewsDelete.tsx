@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
 import { deleteNews } from "../_actions/news";
 import { XSquareIcon } from "lucide-react";
 
-const NewsDelete = ({id}:{id:number}) => {
+const NewsDelete = ({ id }: { id: string }) => {
   const [isPending, startTransition] = useTransition();
   return (
     <Button

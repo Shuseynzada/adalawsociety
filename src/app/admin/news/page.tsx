@@ -27,7 +27,6 @@ const AdminNewsPage = async () => {
               </Button>
             </div>
             <NewsCard
-              id={news.id}
               title={news.title}
               description={news.description}
               picture={news.picturePath}

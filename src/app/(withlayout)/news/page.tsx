@@ -8,10 +8,9 @@ const NewsPage = async () => {
     <div className="text-center flex flex-col justify-center items-center">
       <h1>News</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-10 gap-y-6">
-        {newsArr.map((news, i) => (
+        {newsArr.map((news) => (
           <NewsCard
-            key={i}
-            id={0}
+            key={news.id}
             title={news.title}
             description={news.description}
             picture={news.picturePath}

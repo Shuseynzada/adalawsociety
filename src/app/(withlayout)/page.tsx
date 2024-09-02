@@ -1,18 +1,10 @@
 import { eventPicture1, placeholderImg } from "@/assets";
 import NewsCard from "@/components/NewsCard";
 import { Button } from "@/components/ui/button";
+import db from "@/db/db";
 import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-const Event1 = {
-  id: 1,
-  title: "ADA LAW SOCIETY'S FIRST EVENT",
-  date: new Date(2024, 7, 26),
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
-  picture: eventPicture1,
-};
 
 export default function Home() {
   return (
@@ -27,7 +19,10 @@ export default function Home() {
 
 function Hero() {
   return (
-    <div id="home" className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full">
+    <div
+      id="home"
+      className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full"
+    >
       <h1>ADA LAW SOCIETY</h1>
       <p className="text-xl max-w-md">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
@@ -44,7 +39,10 @@ function Hero() {
 
 function About() {
   return (
-    <div id="about" className="flex flex-col-reverse sm:grid grid-cols-2 w-full my-8">
+    <div
+      id="about"
+      className="flex flex-col-reverse sm:grid grid-cols-2 w-full my-8"
+    >
       <Image
         src={placeholderImg}
         alt={"about section banner"}
@@ -61,32 +59,23 @@ function About() {
   );
 }
 
-function News() {
+async function News() {
+  const newsArr = await db.news.findMany({ take: 2 });
   return (
-    <div id="news" className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto">
+    <div
+      id="news"
+      className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto"
+    >
       <div className="flex justify-between px-6">
         <h1>News</h1>
         <Button variant="outline" className="shadow-md">
-          <Link href="/news">
-          View All
-          </Link>
+          <Link href="/news">View All</Link>
         </Button>
       </div>
       <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
-        <NewsCard
-          id={Event1.id}
-          title={Event1.title}
-          description={Event1.description}
-          date={Event1.date}
-          picture={Event1.picture}
-        />
-        <NewsCard
-          id={Event1.id}
-          title={Event1.title}
-          description={Event1.description}
-          date={Event1.date}
-          picture={null}
-        />
+      {newsArr.map(news=>(
+        <NewsCard key={news.id} title={news.title} description={news.description} picture={news.picturePath} date={news.date} />
+      ))}
       </div>
     </div>
   );
