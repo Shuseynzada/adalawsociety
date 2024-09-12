@@ -3,6 +3,7 @@ import { mainLogo } from "@/assets";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -40,14 +41,30 @@ const Footer = () => {
         <div className="sm:px-10 md:px-20">
           <h3>Follow us</h3>
           <ul className="p-2 flex flex-col gap-4">
-            <li className="flex gap-3"><Facebook/> Facebook </li>
-            <li className="flex gap-3"><Instagram/> Instagram </li>
-            <li className="flex gap-3"><Linkedin/> Linkedin </li>
+            <Link href="https://www.facebook.com/adalawsociety" target="_blank">
+              <li className="flex gap-3">
+                <Facebook /> Facebook{" "}
+              </li>
+            </Link>
+            <hr className="w-[10rem]" />
+            <Link href="https://www.instagram.com/adalawsociety" target="_blank">
+              <li className="flex gap-3">
+                <Instagram /> Instagram{" "}
+              </li>
+            </Link>
+            <hr className="w-[10rem]" />
+            <Link href="https://www.linkedin.com/company/ada-law-society" target="_blank">
+              <li className="flex gap-3">
+                <Linkedin /> Linkedin{" "}
+              </li>
+            </Link>
           </ul>
         </div>
       </div>
       <div className="h-[1px] w-full bg-black my-1"></div>
-      <div className="text-end font-medium mb-5 mt-3">© 2024 ADA Law Society. All rights reserved.</div>
+      <div className="text-end font-medium mb-5 mt-3">
+        © 2024 ADA Law Society. All rights reserved.
+      </div>
     </div>
   );
 };

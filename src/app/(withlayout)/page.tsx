@@ -24,10 +24,7 @@ function Hero() {
       className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full"
     >
       <h1>ADA LAW SOCIETY</h1>
-      <p className="text-xl max-w-md">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        varius enim in eros elementum tristique.
-      </p>
+      <p className="text-xl max-w-md">Your Gateway to the Legal World</p>
       <Image
         src={placeholderImg}
         alt={"hero section banner"}
@@ -73,9 +70,15 @@ async function News() {
         </Button>
       </div>
       <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
-      {newsArr.map(news=>(
-        <NewsCard key={news.id} title={news.title} description={news.description} picture={news.picturePath} date={news.date} />
-      ))}
+        {newsArr.map((news) => (
+          <NewsCard
+            key={news.id}
+            title={news.title}
+            description={news.description}
+            picture={news.picturePath}
+            date={news.date}
+          />
+        ))}
       </div>
     </div>
   );
@@ -88,22 +91,24 @@ function Contact() {
       <p className="">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-center gap-10 mt-10">
+      <div className="flex justify-center gap-10 mt-10">
         <div className="flex flex-col gap-1 justify-center items-center">
           <Mail className="size-16 bg-custom p-3 text-white rounded-full" />
           <h3 className="p-0 m-0">Email</h3>
           <Button variant="link" className="text-customprimary text-lg">
-            <Link href="mailto:example@gmail.com">example@gmail.com</Link>
+            <Link href="mailto:lawsociety@ada.edu.az">
+              lawsociety@ada.edu.az
+            </Link>
           </Button>
         </div>
-        <div className="flex flex-col gap-1 justify-center items-center">
+        {/* <div className="flex flex-col gap-1 justify-center items-center">
           <Phone className="size-16 bg-custom p-3 text-white rounded-full" />
           <h3 className="p-0 m-0">Phone</h3>
           <Button variant="link" className="text-customprimary text-lg">
             <Link href="tel:+994500000000">+994 50 000 00 00</Link>
           </Button>
-        </div>
-        <div className="flex flex-col sm:col-span-2 lg:col-span-1 gap-1 justify-center items-center">
+        </div> */}
+        {/* <div className="flex flex-col sm:col-span-2 lg:col-span-1 gap-1 justify-center items-center">
           <MapPin className="size-16 bg-custom p-3 text-white rounded-full" />
           <h3 className="p-0 m-0">Office</h3>
           <Button
@@ -117,7 +122,7 @@ function Contact() {
               Ahmadbey Aghaoglu str. 61 Baku, 1008
             </Link>
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
