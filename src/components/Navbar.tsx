@@ -2,11 +2,12 @@
 import { useState, useEffect, MouseEvent } from "react";
 import { mainLogo } from "@/assets";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LanguageBox } from "./languageBox";
 import { Button } from "./ui/button";
-import { ArrowUpRight, Menu, XIcon } from "lucide-react";
+import { Menu, XIcon } from "lucide-react";
+import CompetitionsBox from "./competitionsBox";
+import Link from "next/link";
 
 const menus = [
   {
@@ -133,24 +134,19 @@ const Navbar: React.FC = () => {
         </Button>
       </div>
       <div className="flex items-center justify-center">
-        <Image
-          src={mainLogo}
-          alt="Law Society Logo"
-          className="outline outline-offset-4 rounded-full bg-[#F8F8FF] p-1"
-          width={90}
-          height={90}
-        />
+        <Link href="/">
+          <Image
+            src={mainLogo}
+            alt="Law Society Logo"
+            className="outline outline-offset-4 rounded-full bg-[#F8F8FF] p-1"
+            width={90}
+            height={90}
+          />
+        </Link>
       </div>
       <div className="flex items-center col-span-2 xl:col-span-1 justify-start xl:justify-end gap-5">
         <LanguageBox />
-        {pathName !== "/competitions" ? (
-          <Link href={"/competitions"}>
-            <Button className="bg-custom">
-              Competitions
-              <ArrowUpRight />
-            </Button>
-          </Link>
-        ) : null}
+        <CompetitionsBox />
       </div>
 
       {/* Mobile menu */}

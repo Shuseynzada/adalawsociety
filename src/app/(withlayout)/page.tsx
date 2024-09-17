@@ -48,8 +48,16 @@ function About() {
       <div className="flex flex-col justify-center pl-2">
         <h1>About us</h1>
         <p className="text-xl max-w-md">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          varius enim in eros elementum tristique.
+          ADA Law Society (ALS) is a student organization established in
+          September 2019. The Society organizes different events with the
+          purpose of extending students' knowledge and contributing to their
+          student life simultaneously. By attending the events of the Society,
+          students will get a chance to hear from distinguished local and
+          foreign lawyers and law professors their experience and knowledge on
+          certain fields of law. Topics of the events interest not only law
+          students, but students of other majors as well. The scope of the
+          Society's activities includes, but not limited with, lectures, talks,
+          legal discussions, academic excursions, moot court competitions.
         </p>
       </div>
     </div>
