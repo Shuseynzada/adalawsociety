@@ -33,10 +33,10 @@ const Footer = () => {
               Subscribe
             </Button>
           </div>
-          <span className="block text-sm my-4">
+          {/* <span className="block text-sm my-4">
             By subscribing you agree to with our Privacy Policy and provide
             consent to receive updates from our company.
-          </span>
+          </span> */}
         </div>
         <div className="sm:px-10 md:px-20">
           <h3>Follow us</h3>

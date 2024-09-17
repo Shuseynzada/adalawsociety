@@ -58,6 +58,9 @@ export async function addNews(prevState: unknown, formData: FormData) {
     },
   });
 
+  revalidatePath(`/`);
+  revalidatePath(`/admin/news`);
+  revalidatePath(`/news`);
   redirect("/admin/news");
 }
 
@@ -120,5 +123,8 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
     },
   });
 
+  revalidatePath(`/`);
+  revalidatePath(`/admin/news`);
+  revalidatePath(`/news`);
   redirect("/admin/news");
 }

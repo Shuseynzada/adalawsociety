@@ -88,9 +88,6 @@ function Contact() {
   return (
     <div id="contact" className="text-center mb-10 mt-5">
       <h1>Contact us</h1>
-      <p className="">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </p>
       <div className="flex justify-center gap-10 mt-10">
         <div className="flex flex-col gap-1 justify-center items-center">
           <Mail className="size-16 bg-custom p-3 text-white rounded-full" />
