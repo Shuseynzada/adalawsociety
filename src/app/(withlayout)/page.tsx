@@ -83,7 +83,7 @@ async function News() {
             key={news.id}
             title={news.title}
             description={news.description}
-            picture={news.picturePath}
+            picture={news.picturePaths}
             date={news.date}
           />
         ))}

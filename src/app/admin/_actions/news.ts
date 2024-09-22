@@ -123,7 +123,7 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
     description: formData.get("description"),
     date: formData.get("date"),
     images: Array.from(formData.getAll("images")), // Extract new images if any
-    removedImages: Array.from(formData.getAll("removedImages[]")), // Removed images
+    removedImages: Array.from(formData.getAll("removedImages[]")) ?, // Removed images
   });
 
   // Handle validation errors
@@ -140,6 +140,9 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
 
   // Handle removed images
   if (data.removedImages && data.removedImages.length > 0) {
+    if (data.removedImages) {
+    }
+
     for (const removedImagePath of data.removedImages) {
       const imageRef = ref(storage, removedImagePath);
       try {
@@ -149,9 +152,7 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
         console.error("Error deleting removed image from Firebase:", error);
       }
     }
-    // Filter out removed images from the existing picturePaths
-    picturePaths = picturePaths.filter((imagePath) => !data.removedImages.includes(imagePath));
-
+    picturePaths = picturePaths.filter((imagePath) => !data.removedImages?.includes(imagePath));
   }
 
   // Handle newly added images (upload to Firebase)

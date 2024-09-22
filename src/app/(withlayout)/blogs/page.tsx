@@ -12,7 +12,7 @@ const BlogsPage = async () => {
             key={news.id}
             title={news.title}
             description={news.description}
-            picture={news.picturePath[0]}
+            picture={news.picturePaths}
             date={news.date}
           />
         ))}

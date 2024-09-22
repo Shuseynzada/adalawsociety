@@ -18,7 +18,7 @@ const AdminNewsPage = async () => {
       ) : (
         news.map((news, i) => (
           <div key={i}>
-            <div className="absolute z-10 p-1 flex gap-1">
+            <div className="absolute z-10 p-1 flex gap-10">
               <NewsDelete id={news.id} />
               <Button variant="secondary" asChild>
                 <Link href={`./news/${news.id}/edit`}>
