@@ -123,7 +123,7 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
     description: formData.get("description"),
     date: formData.get("date"),
     images: Array.from(formData.getAll("images")), // Extract new images if any
-    removedImages: Array.from(formData.getAll("removedImages[]")) ?, // Removed images
+    removedImages: Array.from(formData.getAll("removedImages[]")), // Removed images
   });
 
   // Handle validation errors
