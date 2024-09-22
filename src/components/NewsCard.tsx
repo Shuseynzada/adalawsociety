@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { placeholderImg } from "@/assets";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Button } from "./ui/button";
 import { getDayName, getMonthName } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ const NewsCard = ({
 }: {
   title: string;
   description: string;
-  picture: string | StaticImageData | null | undefined;
+  picture: string[] | null | undefined;
   date: Date;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +48,7 @@ const NewsCard = ({
           </span>
         </div>
         <Image
-          src={picture ? picture : placeholderImg}
+          src={picture ? picture[0] : placeholderImg}
           alt="Event picture"
           width={400} // Provide a width
           height={400} // Provide a height

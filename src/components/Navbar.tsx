@@ -30,13 +30,17 @@ const menus = [
     title: "ALS Team",
     href: "/team",
   },
+  {
+    title: "Blog",
+    href: "/blogs",
+  },
 ];
 
 const Navbar: React.FC = () => {
   const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("home");
+  const [hashedPart, setHashedPath] = useState("")
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -48,6 +52,7 @@ const Navbar: React.FC = () => {
   };
 
   useEffect(() => {
+    setHashedPath(window.location.hash)
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -55,29 +60,28 @@ const Navbar: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const sections = document.querySelectorAll("section[id]");
-    const options = {
-      root: null,
-      rootMargin: "-50px",
-      threshold: 0.3,
-    };
+    const hash = window.location.hash;
+    if (hash && pathName === "/") {
+      const targetId = hash.replace("#", "");
+      const targetElement = document.getElementById(targetId);
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    }, options);
+      if (targetElement) {
+        const offset = -120; // Adjust offset as needed
+        const topPosition =
+          targetElement.getBoundingClientRect().top + window.scrollY + offset;
 
-    sections.forEach((section) => observer.observe(section));
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
-  }, []);
+        window.scrollTo({
+          top: topPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, [pathName]);
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("/#")) {
+    const isHashLink = href.startsWith("/#");
+
+    if (isHashLink && pathName === "/") {
       e.preventDefault();
       const targetId = href.split("#")[1];
       const targetElement = document.getElementById(targetId);
@@ -92,18 +96,16 @@ const Navbar: React.FC = () => {
           behavior: "smooth",
         });
 
-        setActiveSection(targetId);
         window.history.pushState({}, "", href);
       }
     }
   };
 
   const isActiveMenu = (href: string) => {
-    if (href.startsWith("/#")) {
-      const sectionId = href.split("#")[1];
-      return activeSection === sectionId;
+    if (hashedPart) {
+      return pathName + hashedPart == href;
     }
-    return pathName === href;
+    return pathName == href;
   };
 
   return (
@@ -112,11 +114,11 @@ const Navbar: React.FC = () => {
         isSticky
           ? "bg-white shadow-lg sticky top-0 z-50 transition-all duration-100"
           : "bg-transparent"
-      } grid grid-cols-2 xl:grid-cols-3 px-12 sm:px-20 mb-3 py-2 w-full`}
+      } grid grid-cols-2 xl:grid-cols-5 px-12 sm:px-20 mb-3 py-2 w-full`}
     >
-      <div className="hidden xl:flex items-center justify-end xl:justify-start gap-4">
+      <div className="hidden col-span-2 xl:flex items-center justify-end xl:justify-start gap-4">
         {menus.map((menu, i) => (
-          <a
+          <Link
             href={menu.href}
             key={i}
             onClick={(e) => handleClick(e, menu.href)}
@@ -125,7 +127,7 @@ const Navbar: React.FC = () => {
             }`}
           >
             {menu.title}
-          </a>
+          </Link>
         ))}
       </div>
       <div className="xl:hidden flex justify-start xl:justify-center items-center z-30">
@@ -144,7 +146,7 @@ const Navbar: React.FC = () => {
           />
         </Link>
       </div>
-      <div className="flex items-center col-span-2 xl:col-span-1 justify-start xl:justify-end gap-5">
+      <div className="flex items-center col-span-2 xl:col-span-2 justify-start xl:justify-end gap-5">
         <LanguageBox />
         <CompetitionsBox />
       </div>
@@ -154,7 +156,7 @@ const Navbar: React.FC = () => {
         <div className="absolute top-16 left-0 w-full bg-white z-20 shadow-lg">
           <div className="flex flex-col items-center py-4">
             {menus.map((menu, i) => (
-              <a
+              <Link
                 href={menu.href}
                 key={i}
                 onClick={(e) => {
@@ -166,7 +168,7 @@ const Navbar: React.FC = () => {
                 }`}
               >
                 {menu.title}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

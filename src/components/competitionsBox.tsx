@@ -5,8 +5,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ArrowUpRight } from "lucide-react";
@@ -27,18 +25,16 @@ const CompetitionsBox = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Link href={"/competitions"}>
-          <Button className="bg-custom">
-            Competitions
-            <ArrowUpRight />
-          </Button>
-        </Link>
+        <Button className="bg-custom">
+          Competitions
+          <ArrowUpRight />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         {/* <DropdownMenuLabel>Select language</DropdownMenuLabel>
     <DropdownMenuSeparator /> */}
         {competitions.map((competition) => (
-          <DropdownMenuItem key={competition.label}>
+          <DropdownMenuItem key={competition.label} asChild>
             <Link href={competition.path}>{competition.label}</Link>
           </DropdownMenuItem>
         ))}

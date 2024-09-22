@@ -29,7 +29,7 @@ const AdminNewsPage = async () => {
             <NewsCard
               title={news.title}
               description={news.description}
-              picture={news.picturePath}
+              picture={news.picturePaths}
               date={news.date}
             />
           </div>

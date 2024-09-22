@@ -15,7 +15,17 @@ model News {
   title     String
   description   String
   date DateTime
-  picturePath String
+  picturePaths String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blogs {
+  id String @id @default(uuid())
+  title     String
+  description   String
+  date DateTime
+  picturePaths String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
