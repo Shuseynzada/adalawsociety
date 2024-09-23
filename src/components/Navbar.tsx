@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect } from "react";
 import { mainLogo } from "@/assets";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -8,6 +8,7 @@ import { Button } from "./ui/button";
 import { Menu, XIcon } from "lucide-react";
 import CompetitionsBox from "./competitionsBox";
 import Link from "next/link";
+import useHash from "../lib/useHash"; // Import the custom hook
 
 const menus = [
   {
@@ -38,9 +39,9 @@ const menus = [
 
 const Navbar: React.FC = () => {
   const pathName = usePathname();
+  const hash = useHash(); // Use the custom hook to get the current hash
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
-  const [hashedPart, setHashedPath] = useState("")
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -52,7 +53,6 @@ const Navbar: React.FC = () => {
   };
 
   useEffect(() => {
-    setHashedPath(window.location.hash)
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -60,52 +60,34 @@ const Navbar: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash && pathName === "/") {
-      const targetId = hash.replace("#", "");
-      const targetElement = document.getElementById(targetId);
+    const handleScrollToHash = () => {
+      if (hash && pathName === "/") {
+        const targetId = hash.replace("#", "");
+        const targetElement = document.getElementById(targetId);
 
-      if (targetElement) {
-        const offset = -120; // Adjust offset as needed
-        const topPosition =
-          targetElement.getBoundingClientRect().top + window.scrollY + offset;
+        if (targetElement) {
+          const offset = -120; // Adjust offset as needed
+          const topPosition =
+            targetElement.getBoundingClientRect().top +
+            window.scrollY +
+            offset;
 
-        window.scrollTo({
-          top: topPosition,
-          behavior: "smooth",
-        });
+          window.scrollTo({
+            top: topPosition,
+            behavior: "smooth",
+          });
+        }
       }
-    }
-  }, [pathName]);
+    };
 
-  const handleClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    const isHashLink = href.startsWith("/#");
+    // Call scroll when the hash changes
+    handleScrollToHash();
+  }, [hash, pathName]); // Trigger when hash or pathName changes
 
-    if (isHashLink && pathName === "/") {
-      e.preventDefault();
-      const targetId = href.split("#")[1];
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement) {
-        const offset = -120; // Adjust this offset as needed
-        const topPosition =
-          targetElement.getBoundingClientRect().top + window.scrollY + offset;
-
-        window.scrollTo({
-          top: topPosition,
-          behavior: "smooth",
-        });
-
-        window.history.pushState({}, "", href);
-      }
-    }
-  };
+  const currentPathWithHash = pathName + hash;
 
   const isActiveMenu = (href: string) => {
-    if (hashedPart) {
-      return pathName + hashedPart == href;
-    }
-    return pathName == href;
+    return href === currentPathWithHash;
   };
 
   return (
@@ -121,7 +103,6 @@ const Navbar: React.FC = () => {
           <Link
             href={menu.href}
             key={i}
-            onClick={(e) => handleClick(e, menu.href)}
             className={`hover:bg-custom-transparent p-2 rounded-md text-center ${
               isActiveMenu(menu.href) ? "bg-customprimary text-white" : ""
             }`}
@@ -159,8 +140,7 @@ const Navbar: React.FC = () => {
               <Link
                 href={menu.href}
                 key={i}
-                onClick={(e) => {
-                  handleClick(e, menu.href);
+                onClick={() => {
                   setIsOpen(false);
                 }}
                 className={`hover:bg-custom-transparent p-3 px-10 rounded-md ${
