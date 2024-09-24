@@ -5,7 +5,7 @@ import CompetitionNewsDelete from "./CompetitionNewsDelete";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Edit } from "lucide-react";
-import { CompetitionNews } from "@prisma/client";
+import { Competition, CompetitionNews } from "@prisma/client";
 
 // Define the valid competition values from the enum
 export const competitionEnum = ["Debat", "MoodCourt"] as const;
@@ -44,7 +44,7 @@ const ClientSideAdminNewsPage: React.FC<ClientSideAdminNewsPageProps> = ({
           className="border p-1"
         >
           <option value="All">All</option>
-          {competitionEnum.map((name, index) => (
+          {Object.keys(Competition).map((name, index) => (
             <option key={index} value={name}>
               {name}
             </option>

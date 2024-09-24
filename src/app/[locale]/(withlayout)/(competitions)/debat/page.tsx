@@ -1,4 +1,5 @@
 import CompetitionLayout from "@/components/competitionLayout";
+import { Competition } from "@prisma/client";
 
 // Static description for the competition
 const competitionDescription = `
@@ -12,7 +13,7 @@ const competitionDescription = `
 `;
 
 const DebatPage = () => {
-  return <CompetitionLayout name={"Debat"} description={competitionDescription} />;
+  return <CompetitionLayout name={Competition.Debat} description={competitionDescription} />;
 };
 
 export default DebatPage;

@@ -9,18 +9,12 @@ export type Competition = 'Debat' | 'MoodCourt';
 
 // Define the component's props type
 type CompetitionLayoutProps = {
-  name: string;
+  name: Competition;
   description: string;
 };
 
 const CompetitionLayout = async ({ name, description }: CompetitionLayoutProps) => {
-  // Validate that the name is a valid Competition enum value
-  const competitionValues: Competition[] = ['Debat', 'MoodCourt'];
   
-  if (!competitionValues.includes(name as Competition)) {
-    return notFound(); // Return 404 if name is not a valid competition
-  }
-
   // Fetch competition news from the database for the given competition
   const news: CompetitionNews[] = await db.competitionNews.findMany({
     where: { competition: name as Competition }, // Cast name to the Competition enum

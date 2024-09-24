@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CompetitionNews } from "@prisma/client";
+import { Competition, CompetitionNews } from "@prisma/client";
 import { useFormState, useFormStatus } from "react-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,9 +10,6 @@ import {
   addCompetitionNews,
   updateCompetitionNews,
 } from "../_actions/competition-news";
-
-// Define the valid competition values from the enum
-export const competitionEnum = ["Debat", "MoodCourt"] as const;
 
 type CompetitionNewsFormProps = {
   news?: CompetitionNews | null;
@@ -116,7 +113,7 @@ const CompetitionNewsForm: React.FC<CompetitionNewsFormProps> = ({ news }) => {
           <option value="" disabled>
             Select Competition
           </option>
-          {competitionEnum.map((competition, index) => (
+          {Object.keys(Competition).map((competition, index) => (
             <option key={index} value={competition}>
               {competition}
             </option>
