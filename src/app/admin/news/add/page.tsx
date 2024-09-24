@@ -1,5 +1,5 @@
 import React from "react";
-import NewForm from "../NewForm";
+import NewForm from "../NewsForm";
 
 const AddNewsPage = () => {
   return (

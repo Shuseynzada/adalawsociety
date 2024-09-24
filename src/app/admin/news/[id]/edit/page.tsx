@@ -1,4 +1,4 @@
-import NewForm from "../../NewForm";
+import NewForm from "../../NewsForm";
 import db from "@/db/db";
 
 export default async function EditNewsPage({

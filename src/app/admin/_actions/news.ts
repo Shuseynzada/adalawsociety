@@ -4,8 +4,8 @@ import db from "@/db/db";
 import { z } from "zod";
 import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
-import { storage } from "@/lib/firebase";
+import { ref, deleteObject } from "firebase/storage";
+import { storage, uploadImagesToStorage } from "@/lib/firebase";
 
 // Zod Schemas
 const fileScheme = z.instanceof(File, { message: "Required" });
@@ -29,28 +29,6 @@ const editSchema = addScheme.extend({
   removedImages: z.array(z.string()).optional(),
 });
 
-// Firebase storage image upload
-async function uploadImagesToStorage(files: File[]): Promise<string[]> {
-  const uploadPromises = files.map((file) => {
-    const storageRef = ref(storage, `news/${crypto.randomUUID()}-${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    return new Promise<string>((resolve, reject) => {
-      uploadTask.on(
-        "state_changed",
-        null,
-        (error) => reject(error),
-        async () => {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          resolve(downloadURL);
-        }
-      );
-    });
-  });
-
-  return Promise.all(uploadPromises);
-}
-
 // Add News Action
 export async function addNews(prevState: unknown, formData: FormData) {
   const result = addScheme.safeParse({
@@ -71,7 +49,7 @@ export async function addNews(prevState: unknown, formData: FormData) {
 
   try {
     // Upload all images to Firebase Storage
-    const imageUrls = await uploadImagesToStorage(images);
+    const imageUrls = await uploadImagesToStorage(images, "news");
 
     // Save the news entry to the database
     await db.news.create({
@@ -86,38 +64,48 @@ export async function addNews(prevState: unknown, formData: FormData) {
     revalidatePath(`/`);
     revalidatePath(`/admin/news`);
     revalidatePath(`/news`);
-    redirect("/admin/news");
   } catch (error) {
-    console.error("Error adding news:", error);
+    return error
   }
+  redirect("/admin/news");
 }
 
+// Delete News Action
 // Delete News Action
 export async function deleteNews(id: string) {
   const news = await db.news.findUnique({ where: { id } });
 
   if (!news) return notFound();
 
-  // Delete each image from Firebase Storage
-  for (const imagePath of news.picturePaths) {
-    const imageRef = ref(storage, imagePath);
-    await deleteObject(imageRef).catch((error) => {
-      console.error("Error deleting image from Firebase Storage:", error);
-    });
+  try {
+    // Delete each image from Firebase Storage
+    for (const imagePath of news.picturePaths) {
+      const imageRef = ref(storage, imagePath);
+      await deleteObject(imageRef).catch((error) => {
+        console.error("Error deleting image from Firebase Storage:", error);
+      });
+    }
+
+    // Delete the news entry from the database
+    await db.news.delete({ where: { id } });
+
+    // Revalidate paths to ensure fresh data
+    revalidatePath(`/`);
+    revalidatePath(`/admin/news`);
+    revalidatePath(`/news`);
+  } catch (error) {
+    console.error("Error deleting news:", error);
+    return error;  // Return the error for client-side handling if needed
   }
 
-  // Delete the news entry from the database
-  await db.news.delete({ where: { id } });
-
-  revalidatePath(`/`);
-  revalidatePath(`/admin/news`);
-  revalidatePath(`/news`);
+  // Perform the redirect outside the try-catch
   redirect("/admin/news");
 }
 
+
+// Update News Action
 // Update News Action
 export async function updateNews(id: string, prevState: unknown, formData: FormData) {
-
   const result = editSchema.safeParse({
     title: formData.get("title"),
     description: formData.get("description"),
@@ -138,35 +126,32 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
 
   let picturePaths = news.picturePaths;
 
-  // Handle removed images
-  if (data.removedImages && data.removedImages.length > 0) {
-    if (data.removedImages) {
+  try {
+    // Handle removed images
+    if (data.removedImages && data.removedImages.length > 0) {
+      for (const removedImagePath of data.removedImages) {
+        const imageRef = ref(storage, removedImagePath);
+        try {
+          await deleteObject(imageRef);
+          console.log(`Deleted image: ${removedImagePath}`);
+        } catch (error) {
+          console.error("Error deleting removed image from Firebase:", error);
+        }
+      }
+      picturePaths = picturePaths.filter((imagePath) => !data.removedImages?.includes(imagePath));
     }
 
-    for (const removedImagePath of data.removedImages) {
-      const imageRef = ref(storage, removedImagePath);
+    // Handle newly added images (upload to Firebase)
+    if (data.images && data.images.length > 0) {
       try {
-        await deleteObject(imageRef);
-        console.log(`Deleted image: ${removedImagePath}`);
+        const newImageUrls = await uploadImagesToStorage(data.images as File[], "news");
+        picturePaths = [...picturePaths, ...newImageUrls];
       } catch (error) {
-        console.error("Error deleting removed image from Firebase:", error);
+        console.error("Error uploading new images:", error);
       }
     }
-    picturePaths = picturePaths.filter((imagePath) => !data.removedImages?.includes(imagePath));
-  }
 
-  // Handle newly added images (upload to Firebase)
-  if (data.images && data.images.length > 0) {
-    try {
-      const newImageUrls = await uploadImagesToStorage(data.images as File[]);
-      picturePaths = [...picturePaths, ...newImageUrls];
-    } catch (error) {
-      console.error("Error uploading new images:", error);
-    }
-  }
-
-  // Update the news entry in the database
-  try {
+    // Update the news entry in the database
     await db.news.update({
       where: { id },
       data: {
@@ -176,13 +161,17 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
         picturePaths, // Updated picture paths
       },
     });
+
+    // Revalidate paths to ensure fresh data
+    revalidatePath(`/`);
+    revalidatePath(`/admin/news`);
+    revalidatePath(`/news`);
+
   } catch (error) {
-    console.error("Error updating news entry in the database:", error);
+    console.error("Error updating news entry:", error);
+    return error;  // Return error for client-side handling
   }
 
-  // Revalidate and redirect paths
-  revalidatePath(`/`);
-  revalidatePath(`/admin/news`);
-  revalidatePath(`/news`);
+  // Perform the redirect outside the try-catch
   redirect("/admin/news");
 }

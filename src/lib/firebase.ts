@@ -1,6 +1,6 @@
 // firebase.js
 import { initializeApp } from 'firebase/app';
-import { getStorage } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -15,4 +15,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
-export { storage };
+// Firebase storage image upload
+async function uploadImagesToStorage(files: File[], folder = ""): Promise<string[]> {
+  const uploadPromises = files.map((file) => {
+    const storageRef = ref(storage, `${folder ? folder + "/" : ""}${crypto.randomUUID()}-${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    return new Promise<string>((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        null,
+        (error) => reject(error),
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          resolve(downloadURL);
+        }
+      );
+    });
+  });
+
+  return Promise.all(uploadPromises);
+}
+
+export { storage, uploadImagesToStorage };
