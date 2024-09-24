@@ -17,26 +17,25 @@ export default async function BlogPage({
     return <div>Blog not found.</div>;
   }
 
-  // Function to dynamically determine how many images to show on the side
+  // Function to determine how many images should be displayed on the side based on text length
   const getSideImageCount = (text: string, imageCount: number) => {
     const textLength = text.length;
 
-    // Show 2 images if the text is short and there are enough images
-    if (textLength < 500 && imageCount >= 2) return 2;
+    // Dynamically adjust the number of images based on the length of the text
+    if (textLength < 500 && imageCount >= 2) return 1; // Short text: 1 image on the side
+    if (textLength >= 500 && textLength < 1000 && imageCount >= 3) return 2; // Medium text: 2 images
+    if (textLength >= 1000 && imageCount >= 4) return 3; // Long text: 3 images
 
-    // Show 1 image if the text is moderately long
-    if (textLength >= 500 && textLength < 1000 && imageCount >= 1) return 1;
-
-    // Show no images if the text is very long or there are no images
-    return 0;
+    return Math.min(imageCount, 1); // Default to 1 image if not enough text or images
   };
 
+  // Get the maximum number of images to show on the side
   const sideImageCount = getSideImageCount(
     blog.description,
     blog.picturePaths?.length || 0
   );
 
-  // Determine which images to show on the side and bottom
+  // Split the images for side and bottom
   const sidePictures = blog.picturePaths?.slice(0, sideImageCount) || [];
   const bottomPictures = blog.picturePaths?.slice(sideImageCount) || [];
 
@@ -90,6 +89,7 @@ export default async function BlogPage({
           </div>
         </div>
       )}
+
       {/* Back to Blogs Button */}
       <div className="text-right mt-6">
         <Link href="/blogs" className="text-blue-500 hover:underline">
