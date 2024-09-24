@@ -8,19 +8,26 @@ const intlMiddleware = createMiddleware(routing);
 
 // Define the custom middleware function
 export async function middleware(req: NextRequest) {
-    // Run the internationalization middleware first
-    const intlResponse = intlMiddleware(req);
-    if (intlResponse) {
-        return intlResponse;
+    const pathname = req.nextUrl.pathname;
+
+    // Exclude /admin routes from the internationalization middleware
+    if (pathname.startsWith('/admin')) {
+        // Check authentication for admin paths
+        if ((await isAuthenticated(req)) === false) {
+            return new NextResponse("Unauthorized", {
+                status: 401,
+                headers: { "WWW-Authenticate": "Basic" }
+            });
+        }
+    } else {
+        // For non-admin paths, apply the internationalization middleware
+        const intlResponse = intlMiddleware(req);
+        if (intlResponse) {
+            return intlResponse;
+        }
     }
 
-    // Check authentication for specific paths
-    if ((await isAuthenticated(req)) === false) {
-        return new NextResponse("Unauthorized", {
-            status: 401,
-            headers: { "WWW-Authenticate": "Basic" }
-        });
-    }
+    return NextResponse.next();
 }
 
 // Authentication function
@@ -37,8 +44,8 @@ async function isAuthenticated(req: NextRequest) {
 // Config for matcher
 export const config = {
     matcher: [
-        '/', 
-        '/(az|en)/:path*',  // Internationalized pathnames
-        '/admin/:path*'     // Admin-specific authentication
+        '/',
+        '/admin/:path*',      // Admin-specific authentication (excluded from i18n)
+        '/(az|en)/:path*'     // Internationalized pathnames
     ]
 };

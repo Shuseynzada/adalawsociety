@@ -1,19 +1,27 @@
-import NewsCard from "@/components/NewsCard";
-import db from "@/db/db";
+// pages/blogs/index.tsx
+import BlogCard from "@/components/BlogCard";
+import db from "@/db/db"; // Assume Prisma client or another DB client is configured
+import { Blogs } from "@prisma/client"; // Import your Prisma Blog type
 
 const BlogsPage = async () => {
-  const newsArr = await db.news.findMany();
+  // Fetch all blog posts
+  const blogs: Blogs[] = await db.blogs.findMany({
+    orderBy: { date: "desc" }, // Order by date
+  });
+
   return (
-    <div className="text-center flex flex-col justify-center items-center">
-      <h1>Blogs</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-10 gap-y-6">
-        {newsArr.map((news) => (
-          <NewsCard
-            key={news.id}
-            title={news.title}
-            description={news.description}
-            picture={news.picturePaths}
-            date={news.date}
+    <div className="p-6">
+      <h1 className="text-3xl font-bold text-center mb-8">Our Blogs</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {blogs.map((blog) => (
+          <BlogCard
+            key={blog.id}
+            id={blog.id}
+            title={blog.title}
+            description={blog.description}
+            date={blog.date}
+            picture={blog.picturePaths}
           />
         ))}
       </div>
