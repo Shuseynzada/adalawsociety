@@ -15,7 +15,7 @@ const imageScheme = z.array(
   })
 );
 
-// Schema for adding news
+// Schema for adding blog
 const addScheme = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
@@ -23,14 +23,14 @@ const addScheme = z.object({
   images: imageScheme.nonempty("At least one image is required"),
 });
 
-// Schema for editing news
+// Schema for editing blog
 const editSchema = addScheme.extend({
   images: imageScheme.optional(),
   removedImages: z.array(z.string()).optional(),
 });
 
-// Add News Action
-export async function addNews(prevState: unknown, formData: FormData) {
+// Add Blog Action
+export async function addBlog(prevState: unknown, formData: FormData) {
   const result = addScheme.safeParse({
     title: formData.get("title"),
     description: formData.get("description"),
@@ -49,10 +49,10 @@ export async function addNews(prevState: unknown, formData: FormData) {
 
   try {
     // Upload all images to Firebase Storage
-    const imageUrls = await uploadImagesToStorage(images, "news");
+    const imageUrls = await uploadImagesToStorage(images, "blogs");
 
-    // Save the news entry to the database
-    await db.news.create({
+    // Save the blog entry to the database
+    await db.blogs.create({
       data: {
         title: data.title,
         description: data.description,
@@ -62,25 +62,23 @@ export async function addNews(prevState: unknown, formData: FormData) {
     });
 
     revalidatePath(`/`);
-    revalidatePath(`/admin/news`);
-    revalidatePath(`/news`);
+    revalidatePath(`/admin/blogs`);
+    revalidatePath(`/blogs`);
   } catch (error) {
-    console.error("Error adding news:", error);
-
+    console.error("Error adding blog entry:", error);
   }
-  redirect("/admin/news");
+  redirect("/admin/blogs");
 }
 
-// Delete News Action
-// Delete News Action
-export async function deleteNews(id: string) {
-  const news = await db.news.findUnique({ where: { id } });
+// Delete Blog Action
+export async function deleteBlog(id: string) {
+  const blog = await db.blogs.findUnique({ where: { id } });
 
-  if (!news) return notFound();
+  if (!blog) return notFound();
 
   try {
     // Delete each image from Firebase Storage
-    for (const imagePath of news.picturePaths) {
+    for (const imagePath of blog.picturePaths) {
       const imageRef = ref(storage, imagePath);
       await deleteObject(imageRef).catch((error) => {
         console.error("Error deleting image from Firebase Storage:", error);
@@ -88,24 +86,24 @@ export async function deleteNews(id: string) {
     }
 
     // Delete the news entry from the database
-    await db.news.delete({ where: { id } });
+    await db.blogs.delete({ where: { id } });
 
     // Revalidate paths to ensure fresh data
     revalidatePath(`/`);
-    revalidatePath(`/admin/news`);
-    revalidatePath(`/news`);
+    revalidatePath(`/admin/blogs`);
+    revalidatePath(`/blogs`);
   } catch (error) {
-    console.error("Error deleting news:", error);
+    console.error("Error deleting blog:", error);
   }
 
   // Perform the redirect outside the try-catch
-  redirect("/admin/news");
+  redirect("/admin/blogs");
 }
 
 
 // Update News Action
 // Update News Action
-export async function updateNews(id: string, prevState: unknown, formData: FormData) {
+export async function updateBlog(id: string, prevState: unknown, formData: FormData) {
   const result = editSchema.safeParse({
     title: formData.get("title"),
     description: formData.get("description"),
@@ -120,11 +118,11 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
   }
 
   const data = result.data;
-  const news = await db.news.findUnique({ where: { id } });
+  const blog = await db.blogs.findUnique({ where: { id } });
 
-  if (!news) return notFound();
+  if (!blog) return notFound();
 
-  let picturePaths = news.picturePaths;
+  let picturePaths = blog.picturePaths;
 
   try {
     // Handle removed images
@@ -152,7 +150,7 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
     }
 
     // Update the news entry in the database
-    await db.news.update({
+    await db.blogs.update({
       where: { id },
       data: {
         title: data.title,
@@ -164,13 +162,13 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
 
     // Revalidate paths to ensure fresh data
     revalidatePath(`/`);
-    revalidatePath(`/admin/news`);
-    revalidatePath(`/news`);
+    revalidatePath(`/admin/blogs`);
+    revalidatePath(`/blogs`);
 
   } catch (error) {
-    console.error("Error updating news entry:", error);
+    console.error("Error updating blog entry:", error);
   }
 
   // Perform the redirect outside the try-catch
-  redirect("/admin/news");
+  redirect("/admin/blogs");
 }

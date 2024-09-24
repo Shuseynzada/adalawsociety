@@ -29,3 +29,20 @@ model Blogs {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model CompetitionNews {
+  id String @id @default(uuid())
+  title     String
+  description   String
+  date DateTime
+  picturePaths String[]
+  competition Competition
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+enum Competition {
+  Debat
+  MoodCourt
+}

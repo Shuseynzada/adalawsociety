@@ -7,7 +7,10 @@ import { revalidatePath } from "next/cache";
 import { ref, deleteObject } from "firebase/storage";
 import { storage, uploadImagesToStorage } from "@/lib/firebase";
 
-// Zod Schemas
+// Define the valid competition values from the enum
+const competitionEnum = ["Debat","MoodCourt"] as const;
+
+// Zod Schema with competition as an enum
 const fileScheme = z.instanceof(File, { message: "Required" });
 const imageScheme = z.array(
   fileScheme.refine((file) => file.size > 0 && file.type.startsWith("image/"), {
@@ -20,6 +23,7 @@ const addScheme = z.object({
   title: z.string().min(1),
   description: z.string().min(1),
   date: z.string().min(1),
+  competition: z.enum(competitionEnum), // Use zod's enum validation
   images: imageScheme.nonempty("At least one image is required"),
 });
 
@@ -29,12 +33,13 @@ const editSchema = addScheme.extend({
   removedImages: z.array(z.string()).optional(),
 });
 
-// Add News Action
-export async function addNews(prevState: unknown, formData: FormData) {
+// Add CompetitionNews Action
+export async function addCompetitionNews(prevState: unknown, formData: FormData) {
   const result = addScheme.safeParse({
     title: formData.get("title"),
     description: formData.get("description"),
     date: formData.get("date"),
+    competition: formData.get("competition"),
     images: Array.from(formData.getAll("images")), // Extract images from formData
   });
 
@@ -49,32 +54,31 @@ export async function addNews(prevState: unknown, formData: FormData) {
 
   try {
     // Upload all images to Firebase Storage
-    const imageUrls = await uploadImagesToStorage(images, "news");
+    const imageUrls = await uploadImagesToStorage(images, "competition-news");
 
     // Save the news entry to the database
-    await db.news.create({
+    await db.competitionNews.create({
       data: {
         title: data.title,
         description: data.description,
         date: new Date(data.date),
+        competition: data.competition,
         picturePaths: imageUrls, // Save the image URLs
       },
     });
 
     revalidatePath(`/`);
-    revalidatePath(`/admin/news`);
-    revalidatePath(`/news`);
+    revalidatePath(`/admin/competition-news`);
+    revalidatePath(`/competition-news`);
   } catch (error) {
-    console.error("Error adding news:", error);
-
+    console.error("Error adding news entry:", error);
   }
-  redirect("/admin/news");
+  redirect("/admin/competition-news");
 }
 
-// Delete News Action
-// Delete News Action
-export async function deleteNews(id: string) {
-  const news = await db.news.findUnique({ where: { id } });
+// Delete CompetitionNews Action
+export async function deleteCompetitionNews(id: string) {
+  const news = await db.competitionNews.findUnique({ where: { id } });
 
   if (!news) return notFound();
 
@@ -88,28 +92,27 @@ export async function deleteNews(id: string) {
     }
 
     // Delete the news entry from the database
-    await db.news.delete({ where: { id } });
+    await db.competitionNews.delete({ where: { id } });
 
     // Revalidate paths to ensure fresh data
     revalidatePath(`/`);
-    revalidatePath(`/admin/news`);
-    revalidatePath(`/news`);
+    revalidatePath(`/admin/competition-news`);
+    revalidatePath(`/competition-news`);
   } catch (error) {
-    console.error("Error deleting news:", error);
+    console.error("Error deleting news entry:", error);
   }
 
   // Perform the redirect outside the try-catch
-  redirect("/admin/news");
+  redirect("/admin/competition-news");
 }
 
-
-// Update News Action
-// Update News Action
-export async function updateNews(id: string, prevState: unknown, formData: FormData) {
+// Update CompetitionNews Action
+export async function updateCompetitionNews(id: string, prevState: unknown, formData: FormData) {
   const result = editSchema.safeParse({
     title: formData.get("title"),
     description: formData.get("description"),
     date: formData.get("date"),
+    competition: formData.get("competition"),
     images: Array.from(formData.getAll("images")), // Extract new images if any
     removedImages: Array.from(formData.getAll("removedImages[]")), // Removed images
   });
@@ -120,7 +123,7 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
   }
 
   const data = result.data;
-  const news = await db.news.findUnique({ where: { id } });
+  const news = await db.competitionNews.findUnique({ where: { id } });
 
   if (!news) return notFound();
 
@@ -133,7 +136,6 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
         const imageRef = ref(storage, removedImagePath);
         try {
           await deleteObject(imageRef);
-          console.log(`Deleted image: ${removedImagePath}`);
         } catch (error) {
           console.error("Error deleting removed image from Firebase:", error);
         }
@@ -144,7 +146,7 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
     // Handle newly added images (upload to Firebase)
     if (data.images && data.images.length > 0) {
       try {
-        const newImageUrls = await uploadImagesToStorage(data.images as File[], "news");
+        const newImageUrls = await uploadImagesToStorage(data.images as File[], "competition-news");
         picturePaths = [...picturePaths, ...newImageUrls];
       } catch (error) {
         console.error("Error uploading new images:", error);
@@ -152,25 +154,26 @@ export async function updateNews(id: string, prevState: unknown, formData: FormD
     }
 
     // Update the news entry in the database
-    await db.news.update({
+    await db.competitionNews.update({
       where: { id },
       data: {
         title: data.title,
         description: data.description,
         date: new Date(data.date),
+        competition: data.competition,
         picturePaths, // Updated picture paths
       },
     });
 
     // Revalidate paths to ensure fresh data
     revalidatePath(`/`);
-    revalidatePath(`/admin/news`);
-    revalidatePath(`/news`);
+    revalidatePath(`/admin/competition-news`);
+    revalidatePath(`/competition-news`);
 
   } catch (error) {
     console.error("Error updating news entry:", error);
   }
 
   // Perform the redirect outside the try-catch
-  redirect("/admin/news");
+  redirect("/admin/competition-news");
 }
