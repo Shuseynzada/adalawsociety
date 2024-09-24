@@ -4,8 +4,10 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations("Footer");
   return (
     <div className="px-20 mt-5 pt-10 shadow-inner">
       <div className="grid sm:grid-cols-2">
@@ -18,7 +20,7 @@ const Footer = () => {
             height={90}
           />
           <span>
-            Join our newsletter to stay up to date on features and releases.
+            {t("join")}
           </span>
           <div className="flex flex-col sm:flex-row gap-3">
             <input
@@ -39,7 +41,7 @@ const Footer = () => {
           </span> */}
         </div>
         <div className="sm:px-10 md:px-20">
-          <h3>Follow us</h3>
+          <h3>{t("follow")}</h3>
           <ul className="p-2 flex flex-col gap-4">
             <Link href="https://www.facebook.com/adalawsociety" target="_blank">
               <li className="flex gap-3">

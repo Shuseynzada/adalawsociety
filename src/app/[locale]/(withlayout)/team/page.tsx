@@ -2,32 +2,88 @@ import React from "react";
 
 const boardDirectors = [
   {
-    name: "Full name",
-    job: "Job Title",
+    name: "Muslum Mammadov",
+    job: "President",
   },
   {
-    name: "Full name",
-    job: "Job Title",
+    name: "Murad Iskandar",
+    job: "Vice-president",
   },
   {
-    name: "Full name",
-    job: "Job Title",
+    name: "Jalala Hajiyeva",
+    job: "Treasurer",
   },
   {
-    name: "Full name",
-    job: "Job Title",
+    name: "Hayat Namazova",
+    job: "Secretary",
   },
   {
-    name: "Full name",
-    job: "Job Title",
+    name: "Nilufar Taghiyeva",
+    job: "Editor-in-chief",
   },
   {
-    name: "Full name",
-    job: "Job Title",
+    name: "Maleyka Salamzada",
+    job: "Blog Manager",
   },
   {
-    name: "Full name",
-    job: "Job Title",
+    name: "Ayan Yusibli",
+    job: "Blog Manager",
+  },
+  {
+    name: "Hayat Heydarova",
+    job: "Blog Editor",
+  },
+  {
+    name: "Sevinj Huseynova",
+    job: "Blog Editor",
+  },
+  {
+    name: "Aytaj Shahmarova",
+    job: "Event Manager",
+  },
+  {
+    name: "Asim Zulfugarli",
+    job: "Event Planner",
+  },
+  {
+    name: "Tajira Maharramova",
+    job: "Event Planner",
+  },
+  {
+    name: "Aysel Salimova",
+    job: "Debate Organizer",
+  },
+  {
+    name: "Salman Huseynov",
+    job: "Debate Organizer",
+  },
+  {
+    name: "Gular Mammadova",
+    job: "Debate Specialist",
+  },
+  {
+    name: "Hafiz Bayarli",
+    job: "Logistic Coordinator",
+  },
+  {
+    name: "Vatan Mammadova",
+    job: "Marketing Manager",
+  },
+  {
+    name: "Samira Sharifova",
+    job: "Graphic Designer",
+  },
+  {
+    name: "Arzu Mirzayeva",
+    job: "Content Creator",
+  },
+  {
+    name: "Zivar Naghizada",
+    job: "Interviewer",
+  },
+  {
+    name: "Ramzi Samadov",
+    job: "Volunteer",
   },
 ];
 
@@ -77,7 +133,7 @@ const TeamPage = () => {
           ))}
         </div>
       </div>
-      <div className="text-center">
+      {/* <div className="text-center">
         <h1>Event committie</h1>
         <div className="flex justify-center gap-10 mt-5 flex-wrap">
           {eventCommitte.map((director, index) => (
@@ -112,7 +168,7 @@ const TeamPage = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
