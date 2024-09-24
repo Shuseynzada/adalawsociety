@@ -1,34 +1,34 @@
 import { placeholderImg } from "@/assets";
 import Image from "next/image";
 import db from "@/db/db"; // Assuming Prisma client is available here
-import { CompetitionNews } from "@prisma/client";
+import { CompetitionNews } from "@prisma/client"; // Prisma generated types
 import { notFound } from "next/navigation";
+
+// Manually define the enum type to match your Prisma schema
+export type Competition = 'Debat' | 'MoodCourt';
 
 // Define the component's props type
 type CompetitionLayoutProps = {
   name: string;
+  description: string;
 };
 
-// Static description for the competition
-const competitionDescription = `
-  Competition Description goes here. Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit. Donec vel est et purus dictum mollis.
-  Nullam condimentum, ligula non gravida fermentum, arcu felis volutpat
-  neque, at condimentum ipsum justo vel velit. Sed at sapien a nunc
-  gravida dignissim. Integer vel turpis at enim consectetur tincidunt.
-  Vestibulum in dui vel justo faucibus cursus. Donec at lectus vel neque
-  consectetur facil.
-`;
+const CompetitionLayout = async ({ name, description }: CompetitionLayoutProps) => {
+  // Validate that the name is a valid Competition enum value
+  const competitionValues: Competition[] = ['Debat', 'MoodCourt'];
+  
+  if (!competitionValues.includes(name as Competition)) {
+    return notFound(); // Return 404 if name is not a valid competition
+  }
 
-const CompetitionLayout = async ({ name }: CompetitionLayoutProps) => {
   // Fetch competition news from the database for the given competition
   const news: CompetitionNews[] = await db.competitionNews.findMany({
-    where: { competition: name },
+    where: { competition: name as Competition }, // Cast name to the Competition enum
     orderBy: { date: "desc" },
   });
 
   // If no news found, handle it with a 404 or appropriate message
-  if (!news) {
+  if (!news || news.length === 0) {
     return notFound();
   }
 
@@ -36,7 +36,7 @@ const CompetitionLayout = async ({ name }: CompetitionLayoutProps) => {
     <div className="p-2">
       <h1 className="text-center mb-4">{name}</h1>
       <div className="grid grid-cols-5">
-        <p className="block col-span-5">{competitionDescription}</p>
+        <p className="block col-span-5">{description}</p>
         {/* Static Competition Description */}
       </div>
       <div className="p-5">
