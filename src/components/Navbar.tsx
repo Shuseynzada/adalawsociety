@@ -53,7 +53,6 @@ const Navbar: React.FC = () => {
   const currentPathWithHash = pathName.substring(3)
     ? pathName.substring(3)
     : "/" + hash;
-  console.log(currentPathWithHash);
 
   const isActiveMenu = (href: string) => href === currentPathWithHash;
 
