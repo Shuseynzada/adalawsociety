@@ -69,9 +69,8 @@ export function LanguageBox() {
           onValueChange={(newLocale) => setLanguage(newLocale)}
         >
           {languages.map((lang) => (
-            <Link href={`/${lang.value}${pathname.slice(3)}`}>
+            <Link key={lang.value} href={`/${lang.value}${pathname.slice(3)}`}>
               <DropdownMenuRadioItem
-                key={lang.value}
                 value={lang.value}
                 className="flex items-center"
               >
