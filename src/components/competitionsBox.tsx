@@ -7,9 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Link } from "@/i18n/routing";
 import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
-
 const competitions = [
   {
     label: "Debat",

@@ -1,3 +1,7 @@
+import createNextIntPlugin from "next-intl/plugin"
+
+const withNextInt = createNextIntPlugin()
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -11,4 +15,4 @@ const nextConfig = {
     }
 };
 
-export default nextConfig;
+export default withNextInt(nextConfig);

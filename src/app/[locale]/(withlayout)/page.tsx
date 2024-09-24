@@ -1,30 +1,33 @@
-import { eventPicture1, placeholderImg } from "@/assets";
+import { placeholderImg } from "@/assets";
 import NewsCard from "@/components/NewsCard";
 import { Button } from "@/components/ui/button";
 import db from "@/db/db";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 export default function Home() {
+  const tNews = useTranslations("Homenews");
   return (
     <>
       <Hero />
       <About />
-      <News />
+      <News tNews={tNews} />
       <Contact />
     </>
   );
 }
 
 function Hero() {
+  const t = useTranslations("Hero");
   return (
     <div
       id="home"
       className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full"
     >
-      <h1>ADA LAW SOCIETY</h1>
-      <p className="text-xl max-w-md">Your Gateway to the Legal World</p>
+      <h1>{t("title")}</h1>
+      <p className="text-xl max-w-md">{t("subtitle")}</p>
       <Image
         src={placeholderImg}
         alt={"hero section banner"}
@@ -35,6 +38,7 @@ function Hero() {
 }
 
 function About() {
+  const t = useTranslations("About");
   return (
     <div
       id="about"
@@ -46,35 +50,26 @@ function About() {
         className="border w-[500px] aspect-[1/1] object-cover bg-center bg-[#D9D9D9]"
       />
       <div className="flex flex-col justify-center pl-2">
-        <h1>About us</h1>
-        <p className="text-xl max-w-md">
-          ADA Law Society (ALS) is a student organization established in
-          September 2019. The Society organizes different events with the
-          purpose of extending students&apos; knowledge and contributing to their
-          student life simultaneously. By attending the events of the Society,
-          students will get a chance to hear from distinguished local and
-          foreign lawyers and law professors their experience and knowledge on
-          certain fields of law. Topics of the events interest not only law
-          students, but students of other majors as well. The scope of the
-          Society&apos;s activities includes, but not limited with, lectures, talks,
-          legal discussions, academic excursions, moot court competitions.
-        </p>
+        <h1>{t("title")}</h1>
+        <p className="text-xl max-w-md">{t("description")}</p>
       </div>
     </div>
   );
 }
 
-async function News() {
+async function News({ tNews }: any) {
+  // Fetch data directly as this is a server-side component
   const newsArr = await db.news.findMany({ take: 2 });
+
   return (
     <div
       id="news"
       className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto"
     >
       <div className="flex justify-between px-6">
-        <h1>News</h1>
+        <h1>{tNews("title")}</h1>
         <Button variant="outline" className="shadow-md">
-          <Link href="/news">View All</Link>
+          <Link href="/news">{tNews("buttonAll")}</Link>
         </Button>
       </div>
       <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
@@ -93,9 +88,10 @@ async function News() {
 }
 
 function Contact() {
+  const t = useTranslations("Contact");
   return (
     <div id="contact" className="text-center mb-10 mt-5">
-      <h1>Contact us</h1>
+      <h1>{t("title")}</h1>
       <div className="flex justify-center gap-10 mt-10">
         <div className="flex flex-col gap-1 justify-center items-center">
           <Mail className="size-16 bg-custom p-3 text-white rounded-full" />
