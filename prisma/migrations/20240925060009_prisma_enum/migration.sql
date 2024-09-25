@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "Competition" AS ENUM ('Debat', 'MoodCourt');
+
 -- CreateTable
 CREATE TABLE "News" (
     "id" TEXT NOT NULL,
@@ -31,7 +34,7 @@ CREATE TABLE "CompetitionNews" (
     "description" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
     "picturePaths" TEXT[],
-    "competition" TEXT NOT NULL,
+    "competition" "Competition" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

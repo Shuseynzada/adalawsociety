@@ -1,5 +1,4 @@
 "use server";
-
 import db from "@/db/db";
 import { z } from "zod";
 import { notFound, redirect } from "next/navigation";
@@ -69,7 +68,7 @@ export async function addCompetitionNews(prevState: unknown, formData: FormData)
 
     revalidatePath(`/`);
     revalidatePath(`/admin/competition-news`);
-    revalidatePath(`/competition-news`);
+    revalidatePath(`/(competition)`);
   } catch (error) {
     console.error("Error adding news entry:", error);
   }
@@ -168,7 +167,7 @@ export async function updateCompetitionNews(id: string, prevState: unknown, form
     // Revalidate paths to ensure fresh data
     revalidatePath(`/`);
     revalidatePath(`/admin/competition-news`);
-    revalidatePath(`/competition-news`);
+    revalidatePath(`/(competition)`);
 
   } catch (error) {
     console.error("Error updating news entry:", error);

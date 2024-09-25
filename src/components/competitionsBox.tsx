@@ -28,8 +28,6 @@ const CompetitionsBox = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        {/* <DropdownMenuLabel>Select language</DropdownMenuLabel>
-    <DropdownMenuSeparator /> */}
         {competitions.map((competition) => (
           <DropdownMenuItem key={competition.label} asChild>
             <Link href={competition.path}>{competition.label}</Link>

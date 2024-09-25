@@ -7,8 +7,6 @@ import Link from "next/link";
 import { Edit } from "lucide-react";
 import { Competition, CompetitionNews } from "@prisma/client";
 
-// Define the valid competition values from the enum
-export const competitionEnum = ["Debat", "MoodCourt"] as const;
 // Define the prop types for the client-side component
 type ClientSideAdminNewsPageProps = {
   news: CompetitionNews[];

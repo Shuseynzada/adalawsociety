@@ -1,11 +1,8 @@
+"use server"
 import { placeholderImg } from "@/assets";
 import Image from "next/image";
 import db from "@/db/db"; // Assuming Prisma client is available here
-import { CompetitionNews } from "@prisma/client"; // Prisma generated types
-import { notFound } from "next/navigation";
-
-// Manually define the enum type to match your Prisma schema
-export type Competition = 'Debat' | 'MoodCourt';
+import { Competition, CompetitionNews } from "@prisma/client"; // Prisma generated types
 
 // Define the component's props type
 type CompetitionLayoutProps = {
@@ -18,13 +15,8 @@ const CompetitionLayout = async ({ name, description }: CompetitionLayoutProps) 
   // Fetch competition news from the database for the given competition
   const news: CompetitionNews[] = await db.competitionNews.findMany({
     where: { competition: name as Competition }, // Cast name to the Competition enum
-    orderBy: { date: "desc" },
+    orderBy: { date: "desc" },  
   });
-
-  // If no news found, handle it with a 404 or appropriate message
-  if (!news || news.length === 0) {
-    return notFound();
-  }
 
   return (
     <div className="p-2">
