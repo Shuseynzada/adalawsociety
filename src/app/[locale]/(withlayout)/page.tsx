@@ -51,7 +51,7 @@ function About() {
       />
       <div className="flex flex-col justify-center pl-2">
         <h1>{t("title")}</h1>
-        <p className="text-xl max-w-md">{t("description")}</p>
+        <p className="max-w-md">{t("description")}</p>
       </div>
     </div>
   );
