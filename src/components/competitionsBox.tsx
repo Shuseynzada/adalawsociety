@@ -13,8 +13,8 @@ const competitions = [
     path: "/debat",
   },
   {
-    label: "MoodCourt",
-    path: "/mood",
+    label: "MootCourt",
+    path: "/mootcourt",
   },
 ];
 

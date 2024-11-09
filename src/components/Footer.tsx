@@ -5,9 +5,30 @@ import { Button } from "./ui/button";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-
+import { addEmail } from "@/lib/addEmail";
+import { useState } from "react";
 const Footer = () => {
   const t = useTranslations("Footer");
+  
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e:any) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("email", email);
+
+    const response = await addEmail(formData);
+
+    if (response.success) {
+      setMessage(response.message);
+      setEmail(""); // Clear the email field on success
+    } else {
+      setMessage(response.message);
+    }
+  };
+
   return (
     <div className="px-20 mt-5 pt-10 shadow-inner">
       <div className="grid sm:grid-cols-2">
@@ -19,14 +40,19 @@ const Footer = () => {
             width={90}
             height={90}
           />
-          <span>
-            {t("join")}
-          </span>
-          <div className="flex flex-col sm:flex-row gap-3">
+          <span>{t("join")}</span>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-3"
+          >
             <input
-              type="text"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               className="text-lg border border-black px-2 py-1 w-full"
+              type="email"
+              required
             />
             <Button
               variant="outline"
@@ -34,11 +60,8 @@ const Footer = () => {
             >
               Subscribe
             </Button>
-          </div>
-          {/* <span className="block text-sm my-4">
-            By subscribing you agree to with our Privacy Policy and provide
-            consent to receive updates from our company.
-          </span> */}
+          </form>
+          {message && <p className="mt-2">{message}</p>}
         </div>
         <div className="sm:px-10 md:px-20">
           <h3>{t("follow")}</h3>
@@ -49,13 +72,19 @@ const Footer = () => {
               </li>
             </Link>
             <hr className="w-[10rem]" />
-            <Link href="https://www.instagram.com/adalawsociety" target="_blank">
+            <Link
+              href="https://www.instagram.com/adalawsociety"
+              target="_blank"
+            >
               <li className="flex gap-3">
                 <Instagram /> Instagram{" "}
               </li>
             </Link>
             <hr className="w-[10rem]" />
-            <Link href="https://www.linkedin.com/company/ada-law-society" target="_blank">
+            <Link
+              href="https://www.linkedin.com/company/ada-law-society"
+              target="_blank"
+            >
               <li className="flex gap-3">
                 <Linkedin /> Linkedin{" "}
               </li>

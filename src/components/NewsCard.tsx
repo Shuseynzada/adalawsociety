@@ -78,7 +78,7 @@ const NewsCard = ({
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
-          <div className="bg-white p-6 rounded-lg md:max-w-3xl mx-auto mt-5 relative shadow-lg">
+          <div className="bg-white p-6 rounded-lg md:mx-3 mx-auto mt-5 relative shadow-lg">
             <button
               onClick={closeModal}
               className="absolute top-2 right-2 text-lg text-gray-500 hover:text-gray-700"
@@ -98,9 +98,9 @@ const NewsCard = ({
                     key={index}
                     src={pic}
                     alt={`Event picture ${index + 1}`}
-                    width={100}
-                    height={100}
-                    className="object-cover w-24 h-24 rounded-md"
+                    width={200}
+                    height={200}
+                    className="object-cover rounded-md"
                   />
                 ))
               ) : (

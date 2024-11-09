@@ -41,6 +41,10 @@ model CompetitionNews {
   updatedAt DateTime @updatedAt
 }
 
+model Emails {
+  email String @id
+  createdAt DateTime @default(now())
+}
 
 enum Competition {
   Debat

@@ -13,8 +13,12 @@ async function AdminPage() {
         <Link href="admin/blogs">Blogs</Link>
       </Button>
       <br />
-      <Button className="text-lg" asChild>
+      <Button className="text-lg mb-3" asChild>
         <Link href="admin/competition-news">Competition News</Link>
+      </Button>
+      <br />
+      <Button className="text-lg mb-3" asChild>
+        <Link href="admin/emails">Emails</Link>
       </Button>
     </div>
   );
