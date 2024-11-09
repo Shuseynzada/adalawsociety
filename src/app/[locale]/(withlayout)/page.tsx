@@ -27,7 +27,7 @@ function Hero() {
       className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full"
     >
       <h1>{t("title")}</h1>
-      <p className="text-xl max-w-md">"{t("subtitle")}"</p>
+      <p className="text-xl max-w-md">&quot;{t("subtitle")}&quot;</p>
       <Image
         src={placeholderImg}
         alt={"hero section banner"}
