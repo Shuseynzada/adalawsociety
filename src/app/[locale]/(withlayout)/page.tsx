@@ -1,4 +1,4 @@
-import { placeholderImg } from "@/assets";
+import { placeholderImg, societybg } from "@/assets";
 import NewsCard from "@/components/NewsCard";
 import { Button } from "@/components/ui/button";
 import db from "@/db/db";
@@ -29,7 +29,7 @@ function Hero() {
       <h1>{t("title")}</h1>
       <p className="text-xl max-w-md">&quot;{t("subtitle")}&quot;</p>
       <Image
-        src={placeholderImg}
+        src={societybg}
         alt={"hero section banner"}
         className="border w-full h-96 object-cover bg-center bg-[#D9D9D9]"
       />

@@ -1,5 +1,5 @@
 import placeholderImg from "./placeholder-image.png"
-import societybg from "./societybg.jpg"
+import societybg from "./societybg.png"
 import azFlagIcon from "./az.png"
 import enFlagIcon from "./en.png"
 import mainLogo from "./Law society logo.png"

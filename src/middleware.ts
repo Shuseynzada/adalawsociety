@@ -27,7 +27,11 @@ export async function middleware(req: NextRequest) {
         }
     }
 
-    return NextResponse.next();
+    const res = NextResponse.next();
+    res.headers.set('Cache-Control', 'no-store, max-age=0');
+
+
+    return res;
 }
 
 // Authentication function

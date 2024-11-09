@@ -17,10 +17,22 @@ const NewsCard = ({
   date: Date;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [clippedDescription, setClippedDescription] = useState("");
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    if (selectedImage) {
+      setSelectedImage(null); // If an image is selected, clear it to show full content
+    } else {
+      setIsModalOpen(false); // Close modal if no image is selected
+    }
+  };
+
+  const openImageInModal = (image: string) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  };
 
   // Disable background scrolling when modal is open
   useEffect(() => {
@@ -39,9 +51,11 @@ const NewsCard = ({
   // Clip description to a certain number of characters for display in the card
   useEffect(() => {
     const maxLength = 150; // Set max length for the card description
-    setClippedDescription(description.length > maxLength
-      ? description.substring(0, maxLength) + "..."
-      : description);
+    setClippedDescription(
+      description.length > maxLength
+        ? description.substring(0, maxLength) + "..."
+        : description
+    );
   }, [description]);
 
   return (
@@ -86,33 +100,51 @@ const NewsCard = ({
               &times;
             </button>
 
-            {/* Modal content */}
-            <h2 className="text-lg font-bold mb-4">{title}</h2>
-            <p className="mb-4 text-gray-700">{description}</p>
+            {/* Display selected image if clicked, otherwise show full modal content */}
+            {selectedImage ? (
+              <Image
+                src={selectedImage}
+                alt="Selected Event Picture"
+                width={800}
+                height={800}
+                className="object-cover max-w-[90vw] max-h-[80vh] rounded-md"
+              />
+            ) : (
+              <>
+                {/* Modal content */}
+                <h2 className="text-lg font-bold mb-4">{title}</h2>
+                <p className="mb-4 text-gray-700">{description}</p>
 
-            {/* Show all pictures in the modal */}
-            <div className="flex flex-wrap gap-2">
-              {picture && picture.length > 0 ? (
-                picture.map((pic, index) => (
-                  <Image
-                    key={index}
-                    src={pic}
-                    alt={`Event picture ${index + 1}`}
-                    width={200}
-                    height={200}
-                    className="object-cover rounded-md"
-                  />
-                ))
-              ) : (
-                <Image
-                  src={placeholderImg}
-                  alt="Placeholder image"
-                  width={100}
-                  height={100}
-                  className="object-cover w-24 h-24 rounded-md"
-                />
-              )}
-            </div>
+                {/* Show all pictures in the modal with click-to-view functionality */}
+                <div className="flex flex-wrap gap-2">
+                  {picture && picture.length > 0 ? (
+                    picture.map((pic, index) => (
+                      <div
+                        key={index}
+                        onClick={() => openImageInModal(pic)}
+                        className="cursor-pointer"
+                      >
+                        <Image
+                          src={pic}
+                          alt={`Event picture ${index + 1}`}
+                          width={200}
+                          height={200}
+                          className="object-cover rounded-md"
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <Image
+                      src={placeholderImg}
+                      alt="Placeholder image"
+                      width={100}
+                      height={100}
+                      className="object-cover w-24 h-24 rounded-md"
+                    />
+                  )}
+                </div>
+              </>
+            )}
 
             {/* Close button */}
             <div className="mt-6 text-right">
