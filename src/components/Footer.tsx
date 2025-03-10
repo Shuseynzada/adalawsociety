@@ -2,11 +2,12 @@
 import { mainLogo } from "@/assets";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { addEmail } from "@/lib/addEmail";
 import { useState } from "react";
+
 const Footer = () => {
   const t = useTranslations("Footer");
   
@@ -87,6 +88,15 @@ const Footer = () => {
             >
               <li className="flex gap-3">
                 <Linkedin /> Linkedin{" "}
+              </li>
+            </Link>
+            <hr className="w-[10rem]" />
+            <Link
+              href="https://www.youtube.com/@ADALawSociety"
+              target="_blank"
+            >
+              <li className="flex gap-3">
+                <Youtube /> YouTube{" "}
               </li>
             </Link>
           </ul>

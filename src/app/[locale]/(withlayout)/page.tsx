@@ -1,3 +1,4 @@
+"use client";
 import { placeholderImg, societybg } from "@/assets";
 import NewsCard from "@/components/NewsCard";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,7 @@ import { Mail } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { mainLogo } from "@/assets";
 
 export default function Home() {
   const tNews = useTranslations("Homenews");
@@ -21,18 +23,27 @@ export default function Home() {
 
 function Hero() {
   const t = useTranslations("Hero");
+
+  const handleLearnMoreClick = () => {
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div
       id="home"
-      className="flex flex-col justify-center items-center gap-3 my-10 text-center w-full"
+      className="flex flex-col justify-center items-center gap-4 my-10 text-center w-full bg-[#346178] p-10 rounded-lg shadow-lg"
     >
-      <h1>{t("title")}</h1>
-      <p className="text-xl max-w-md">&quot;{t("subtitle")}&quot;</p>
-      <Image
-        src={societybg}
-        alt={"hero section banner"}
-        className="border w-full h-96 object-cover bg-center bg-[#D9D9D9]"
-      />
+      <h1 className="text-5xl font-extrabold text-[#F7F6F7] mb-4">{t("title")}</h1>
+      <p className="text-2xl text-[#F7F6F7] max-w-lg mb-6">{t("subtitle")}</p>
+      <Button
+        onClick={handleLearnMoreClick}
+        className="bg-[#A85D71] text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-[#A5596B]"
+      >
+        Learn More
+      </Button>
     </div>
   );
 }
@@ -42,16 +53,22 @@ function About() {
   return (
     <div
       id="about"
-      className="flex flex-col-reverse sm:grid grid-cols-2 w-full my-8"
+      className="grid grid-cols-1 sm:grid-cols-2 w-full my-12 px-6 py-10 gap-6 bg-white rounded-lg shadow-md max-w-6xl mx-auto"
     >
-      <Image
-        src={placeholderImg}
-        alt={"about section banner"}
-        className="border w-[500px] aspect-[1/1] object-cover bg-center bg-[#D9D9D9]"
-      />
-      <div className="flex flex-col justify-center pl-2">
-        <h1>{t("title")}</h1>
-        <p className="max-w-md">{t("description")}</p>
+      <div className="flex flex-col justify-center px-4 order-2 sm:order-1">
+        <h1 className="text-3xl font-bold mb-4 text-[#346178]">{t("title")}</h1>
+        <p className="max-w-md text-lg leading-relaxed">
+          {t("description")}
+        </p>
+      </div>
+      <div className="flex justify-center items-center order-1 sm:order-2">
+        <Image
+          src={mainLogo}
+          alt="Main logo"
+          width={300}
+          height={300}
+          className="object-cover bg-center rounded-lg"
+        />
       </div>
     </div>
   );
@@ -64,15 +81,17 @@ async function News({ tNews }: any) {
   return (
     <div
       id="news"
-      className="flex flex-col max-w-[500px] lg:max-w-[1100px] my-6 mx-auto"
+      className="max-w-[500px] lg:max-w-[1100px] my-12 mx-auto px-6 py-8 bg-gray-100 rounded-lg shadow-md"
     >
-      <div className="flex justify-between px-6">
-        <h1>{tNews("title")}</h1>
-        <Button variant="outline" className="shadow-md">
+      <div className="flex flex-col sm:flex-row sm:justify-between items-center px-4 mb-6">
+        <h1 className="text-3xl font-bold text-[#346178] mb-4 sm:mb-0">
+          {tNews("title")}
+        </h1>
+        <Button variant="outline" className="shadow-md hover:bg-gray-200">
           <Link href="/news">{tNews("buttonAll")}</Link>
         </Button>
       </div>
-      <div className="grid lg:grid-cols-2 gap-x-20 gap-y-10 px-2 py-6 mx-auto">
+      <div className="grid lg:grid-cols-2 gap-6 px-4 py-6">
         {newsArr.map((news) => (
           <NewsCard
             key={news.id}
@@ -90,40 +109,24 @@ async function News({ tNews }: any) {
 function Contact() {
   const t = useTranslations("Contact");
   return (
-    <div id="contact" className="text-center mb-10 mt-5">
-      <h1>{t("title")}</h1>
-      <div className="flex justify-center gap-10 mt-10">
-        <div className="flex flex-col gap-1 justify-center items-center">
-          <Mail className="size-16 bg-custom p-3 text-white rounded-full" />
-          <h3 className="p-0 m-0">Email</h3>
-          <Button variant="link" className="text-customprimary text-lg">
+    <div
+      id="contact"
+      className="text-center mb-10 mt-10 px-6 py-8 bg-white rounded-lg shadow-md max-w-4xl mx-auto"
+    >
+      <h1 className="text-3xl font-bold mb-4 text-[#346178]">{t("title")}</h1>
+      <div className="flex flex-col sm:flex-row justify-center gap-10 mt-10">
+        <div className="flex flex-col gap-2 justify-center items-center">
+          <div className="w-16 h-16 flex justify-center items-center bg-blue-600 text-white rounded-full shadow-lg">
+            <Mail className="w-8 h-8" />
+          </div>
+          <h3 className="text-lg text-[#A85D71] mt-2">Email</h3>
+          <Button variant="link" className="text-customprimary text-lg hover:underline">
             <Link href="mailto:lawsociety@ada.edu.az">
               lawsociety@ada.edu.az
             </Link>
           </Button>
         </div>
-        {/* <div className="flex flex-col gap-1 justify-center items-center">
-          <Phone className="size-16 bg-custom p-3 text-white rounded-full" />
-          <h3 className="p-0 m-0">Phone</h3>
-          <Button variant="link" className="text-customprimary text-lg">
-            <Link href="tel:+994500000000">+994 50 000 00 00</Link>
-          </Button>
-        </div> */}
-        {/* <div className="flex flex-col sm:col-span-2 lg:col-span-1 gap-1 justify-center items-center">
-          <MapPin className="size-16 bg-custom p-3 text-white rounded-full" />
-          <h3 className="p-0 m-0">Office</h3>
-          <Button
-            variant="link"
-            className="text-customprimary text-lg text-wrap"
-          >
-            <Link
-              href="https://maps.app.goo.gl/ZWhfMzsPijn67dJK9"
-              target="_blank"
-            >
-              Ahmadbey Aghaoglu str. 61 Baku, 1008
-            </Link>
-          </Button>
-        </div> */}
+        {/* You could add more contact options here */}
       </div>
     </div>
   );
