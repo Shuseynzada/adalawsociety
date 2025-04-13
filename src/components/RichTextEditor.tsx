@@ -1,4 +1,3 @@
-// components/RichTextEditor.tsx
 "use client";
 
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -6,7 +5,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Bold from "@tiptap/extension-bold";
 import Heading from "@tiptap/extension-heading";
 import React, { useEffect } from "react";
-
 import { Button } from "@/components/ui/button";
 
 type Props = {
@@ -38,7 +36,10 @@ const RichTextEditor = ({ value, onChange }: Props) => {
           const plainText = event.clipboardData.getData("text/plain");
           view.dispatch(
             view.state.tr.replaceSelectionWith(
-              view.state.schema.nodes.paragraph.create({}, view.state.schema.text(plainText))
+              view.state.schema.nodes.paragraph.create(
+                {},
+                view.state.schema.text(plainText)
+              )
             )
           );
           return true;
@@ -56,10 +57,14 @@ const RichTextEditor = ({ value, onChange }: Props) => {
 
   if (!editor) return null;
 
-  const isActive = (command: () => boolean) => command() ? "bg-blue-500 text-white" : "";
+  const isActive = (command: () => boolean) =>
+    command() ? "bg-blue-500 text-white" : "";
 
-  const addHeading = (level: number) => () => editor.chain().focus().toggleHeading({ level }).run();
-  const isHeadingActive = (level: number) => editor.isActive("heading", { level });
+  const addHeading = (level: 1 | 2 | 3) => () =>
+    editor.chain().focus().toggleHeading({ level }).run();
+
+  const isHeadingActive = (level: 1 | 2 | 3) =>
+    editor.isActive("heading", { level });
 
   return (
     <div className="border rounded-md p-4 bg-white">
