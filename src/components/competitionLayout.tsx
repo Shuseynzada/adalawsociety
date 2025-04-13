@@ -1,37 +1,39 @@
-"use server"
+"use server";
 import { placeholderImg } from "@/assets";
 import Image from "next/image";
-import db from "@/db/db"; // Assuming Prisma client is available here
-import { Competition, CompetitionNews } from "@prisma/client"; // Prisma generated types
+import db from "@/db/db";
+import { Competition, CompetitionNews } from "@prisma/client";
 
-// Define the component's props type
 type CompetitionLayoutProps = {
   name: Competition;
   description: string;
 };
 
-const CompetitionLayout = async ({ name, description }: CompetitionLayoutProps) => {
-  
-  // Fetch competition news from the database for the given competition
+const CompetitionLayout = async ({
+  name,
+  description,
+}: CompetitionLayoutProps) => {
   const news: CompetitionNews[] = await db.competitionNews.findMany({
-    where: { competition: name as Competition }, // Cast name to the Competition enum
-    orderBy: { date: "desc" },  
+    where: { competition: name },
+    orderBy: { date: "desc" },
   });
 
   return (
-    <div className="p-2">
-      <h1 className="text-center mb-4">{name}</h1>
-      <div className="grid grid-cols-5">
-        <p className="block col-span-5">{description}</p>
-        {/* Static Competition Description */}
+    <div className="px-4 py-8 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold text-center mb-6 text-[#346178]">
+        {name === "MoodCourt" ? "Moot Court" : name}
+      </h1>
+
+      <div className="mb-10 text-gray-800 whitespace-pre-line leading-relaxed">
+        {description}
       </div>
-      <div className="p-5">
+
+      <h2 className="text-2xl font-semibold mb-4 text-[#346178]">News</h2>
+      <div className="space-y-6">
         {news.length === 0 ? (
-          <p>No news available for this competition.</p>
+          <p className="text-gray-600">No news available for this competition.</p>
         ) : (
-          news.map((item) => (
-            <CompetitionNewsItem key={item.id} {...item} />
-          ))
+          news.map((item) => <CompetitionNewsItem key={item.id} {...item} />)
         )}
       </div>
     </div>
@@ -45,28 +47,29 @@ type CompetitionNewsItemProps = {
   date: Date;
 };
 
-const CompetitionNewsItem: React.FC<CompetitionNewsItemProps> = ({
+const CompetitionNewsItem = ({
   title,
   picturePaths,
   description,
   date,
-}) => {
-  const imagePath = picturePaths.length > 0 ? picturePaths[0] : null;
+}: CompetitionNewsItemProps) => {
+  const imagePath = picturePaths.length > 0 ? picturePaths[0] : placeholderImg;
 
   return (
-    <div className="sm:flex justify-center items-center mb-4">
+    <div className="flex flex-col sm:flex-row gap-6 items-start bg-white rounded-md shadow-md p-4">
       <Image
-        src={imagePath ? imagePath : placeholderImg}
+        src={imagePath}
         alt="news image"
         width={350}
         height={200}
+        className="rounded-md object-cover"
       />
-      <div className="sm:ml-4">
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="text-gray-500 text-sm">
+      <div>
+        <h3 className="text-xl font-semibold text-[#222]">{title}</h3>
+        <p className="text-sm text-gray-500 mb-2">
           {new Date(date).toLocaleDateString()}
         </p>
-        <p>{description}</p>
+        <p className="text-gray-700">{description}</p>
       </div>
     </div>
   );

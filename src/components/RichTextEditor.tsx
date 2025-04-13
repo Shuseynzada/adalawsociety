@@ -31,10 +31,16 @@ const RichTextEditor = ({ value, onChange }: Props) => {
           "min-h-[300px] w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 text-base prose max-w-none resize-none",
       },
       handlePaste(view, event) {
-        const html = event.clipboardData?.getData("text/html");
+        if (!event.clipboardData) return false;
+        const html = event.clipboardData.getData("text/html");
         if (html) {
           event.preventDefault();
-          view.dispatch(view.state.tr.replaceSelectionWith(view.state.schema.nodes.paragraph.create({}, view.state.schema.text(event.clipboardData.getData("text/plain")))));
+          const plainText = event.clipboardData.getData("text/plain");
+          view.dispatch(
+            view.state.tr.replaceSelectionWith(
+              view.state.schema.nodes.paragraph.create({}, view.state.schema.text(plainText))
+            )
+          );
           return true;
         }
         return false;

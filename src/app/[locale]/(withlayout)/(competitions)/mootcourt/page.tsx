@@ -3,14 +3,10 @@ import { Competition } from "@prisma/client";
 
 // Static description for the competition
 const competitionDescription = `
-  Competition Description goes here. Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit. Donec vel est et purus dictum mollis.
-  Nullam condimentum, ligula non gravida fermentum, arcu felis volutpat
-  neque, at condimentum ipsum justo vel velit. Sed at sapien a nunc
-  gravida dignissim. Integer vel turpis at enim consectetur tincidunt.
-  Vestibulum in dui vel justo faucibus cursus. Donec at lectus vel neque
-  consectetur facil.
-`;
+  The Moot Court at ADA Law Society is a student-led legal simulation where participants argue real or hypothetical cases in a mock courtroom setting. It is designed to sharpen students’ legal research, writing, and public speaking skills while offering hands-on experience in courtroom procedures. The competition is open to all law students interested in deepening their understanding of legal practice.
+  
+  Stay tuned for updates and registration details!
+  `;
 const DebatPage = () => {
   return (
     <CompetitionLayout

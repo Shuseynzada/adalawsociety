@@ -3,17 +3,20 @@ import { Competition } from "@prisma/client";
 
 // Static description for the competition
 const competitionDescription = `
-  Competition Description goes here. Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit. Donec vel est et purus dictum mollis.
-  Nullam condimentum, ligula non gravida fermentum, arcu felis volutpat
-  neque, at condimentum ipsum justo vel velit. Sed at sapien a nunc
-  gravida dignissim. Integer vel turpis at enim consectetur tincidunt.
-  Vestibulum in dui vel justo faucibus cursus. Donec at lectus vel neque
-  consectetur facil.
+  ADA Law Society  organizes  debate sessions that bring together both students and faculty members to engage in thought-provoking discussions on legal, social, and ethical issues. These debates foster a culture of critical thinking, respectful dialogue, and mutual learning across academic levels.
+
+Using structured formats like  Parliamentary o, participants sharpen their argumentation, public speaking, and reasoning skills in a lively and inclusive environment.
+
+Stay tuned for upcoming student, teacher debates and tournament announcements!
 `;
 
 const DebatPage = () => {
-  return <CompetitionLayout name={Competition.Debat} description={competitionDescription} />;
+  return (
+    <CompetitionLayout
+      name={Competition.Debat}
+      description={competitionDescription}
+    />
+  );
 };
 
 export default DebatPage;
