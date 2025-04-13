@@ -1,4 +1,4 @@
-"use client"; // Ensure this is at the top of the file
+"use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import { azFlagIcon, enFlagIcon, placeholderImg } from "@/assets";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // For getting the current path
+import { usePathname } from "next/navigation";
 
 type Language = {
   label: string;

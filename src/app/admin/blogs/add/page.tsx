@@ -4,7 +4,9 @@ import BlogForm from "../BlogForm";
 const AddBlogPage = () => {
   return (
     <>
-      <h1>Add Blog</h1>
+      <h1 className="text-3xl font-bold mb-6 text-[#346178]">
+        Admin Blogs Page
+      </h1>
       <BlogForm />
     </>
   );

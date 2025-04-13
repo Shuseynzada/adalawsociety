@@ -1,49 +1,42 @@
-import Image from "next/image";
-import { placeholderImg } from "@/assets";
-import { Button } from "./ui/button";
+// components/BlogCard.tsx
+import { MessageSquare } from "lucide-react";
 import { Link } from "@/i18n/routing";
 
 type BlogCardProps = {
-  id: string;
+  id: number;
   title: string;
-  description: string;
+  author: string;
+  summary?: string;
   date: Date;
-  picture: string[] | null;
+  commentCount: number;
 };
 
-const BlogCard: React.FC<BlogCardProps> = ({ id, title, description, date, picture }) => {
-  // Clipping the description to limit the content on the card
-  const maxLength = 100;
-  const clippedDescription =
-    description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
+const BlogCard = ({ id, title, author, summary, date, commentCount }: BlogCardProps) => {
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
-    <div className="border border-[1D1D1D] rounded-md shadow-md relative overflow-hidden">
-      {/* Blog Image */}
-      <Image
-        src={picture && picture.length > 0 ? picture[0] : placeholderImg}
-        alt="Blog picture"
-        width={400}
-        height={300}
-        className="w-full h-[200px] object-cover"
-      />
-
-      <div className="p-4">
-        {/* Blog Title */}
-        <h3 className="font-semibold text-lg">{title}</h3>
-
-        {/* Blog Date */}
-        <p className="text-sm text-gray-500">{new Date(date).toLocaleDateString()}</p>
-
-        {/* Blog Description */}
-        <p className="text-sm mt-2 text-gray-700">{clippedDescription}</p>
-
-        {/* Link to dynamic blog page */}
-        <Link href={`/blogs/${id}`}>
-          <Button variant="link" className="mt-3 p-0">
-            Read more
-          </Button>
-        </Link>
+    <div className="flex flex-col gap-2 border-l-4 border-blue-700 pl-4 pr-4 pb-6 bg-white shadow-md rounded-md">
+      <p className="italic text-sm text-gray-700">{author}</p>
+      <h2 className="font-semibold text-xl text-black">{title}</h2>
+      <p className="text-sm text-gray-800 leading-relaxed">
+        {summary || "No summary provided..."}
+      </p>
+      <Link
+        href={`/blogs/${id}`}
+        className="text-blue-600 text-sm mt-1 hover:underline"
+      >
+        Continue reading &gt;&gt;
+      </Link>
+      <div className="flex justify-between items-center text-sm text-gray-500 mt-2">
+        <span>{formattedDate}</span>
+        <span className="flex items-center gap-1">
+          <MessageSquare size={16} />
+          {commentCount}
+        </span>
       </div>
     </div>
   );

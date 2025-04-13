@@ -6,7 +6,12 @@ export default async function EditBlogPage({
 }: {
   params: { id: string };
 }) {
-  const blog = await db.blogs.findUnique({ where: { id } });
+  
+  const blogId = Number(id);
+
+  const blog = await db.blogs.findUnique({
+    where: { id: blogId },
+  });
 
   return (
     <>
