@@ -48,7 +48,7 @@ const Section = ({ title, members }: { title: string; members: { name: string; j
 const TeamPage = () => {
   return (
     <div className="flex flex-col gap-16 items-center justify-center px-4 py-10">
-      <Section title="Directors" members={boardDirectors} />
+      <Section title="Board" members={boardDirectors} />
       <Section title="Event Committee" members={eventCommittee} />
       <Section title="Blog Committee" members={blogCommittee} />
       <Section title="Marketing Committee" members={marketingCommittee} />
