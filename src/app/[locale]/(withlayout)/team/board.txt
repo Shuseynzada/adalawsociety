@@ -1,0 +1,72 @@
+{
+    name: "Jalala Hajiyeva",
+    job: "Treasurer",
+  },
+  {
+    name: "Hayat Namazova",
+    job: "Secretary",
+  },
+  {
+    name: "Maleyka Salamzada",
+    job: "Blog Manager",
+  },
+  {
+    name: "Ayan Yusibli",
+    job: "Blog Manager",
+  },
+  {
+    name: "Hayat Heydarova",
+    job: "Blog Editor",
+  },
+  {
+    name: "Sevinj Huseynova",
+    job: "Blog Editor",
+  },
+  {
+    name: "Aytaj Shahmarova",
+    job: "Event Manager",
+  },
+  {
+    name: "Asim Zulfugarli",
+    job: "Event Planner",
+  },
+  {
+    name: "Tajira Maharramova",
+    job: "Event Planner",
+  },
+  {
+    name: "Aysel Salimova",
+    job: "Debate Organizer",
+  },
+  {
+    name: "Salman Huseynov",
+    job: "Debate Organizer",
+  },
+  {
+    name: "Gular Mammadova",
+    job: "Debate Specialist",
+  },
+  {
+    name: "Hafiz Bayarli",
+    job: "Logistic Coordinator",
+  },
+  {
+    name: "Vatan Mammadova",
+    job: "Marketing Manager",
+  },
+  {
+    name: "Samira Sharifova",
+    job: "Graphic Designer",
+  },
+  {
+    name: "Arzu Mirzayeva",
+    job: "Content Creator",
+  },
+  {
+    name: "Zivar Naghizada",
+    job: "Interviewer",
+  },
+  {
+    name: "Ramzi Samadov",
+    job: "Volunteer",
+  },

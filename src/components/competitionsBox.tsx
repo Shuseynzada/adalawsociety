@@ -9,7 +9,7 @@ import { Link } from "@/i18n/routing";
 import { ArrowUpRight } from "lucide-react";
 const competitions = [
   {
-    label: "Debat",
+    label: "Debates",
     path: "/debat",
   },
   {

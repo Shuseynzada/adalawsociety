@@ -18,10 +18,17 @@ const CompetitionLayout = async ({
     orderBy: { date: "desc" },
   });
 
+  const displayName =
+    name === "MoodCourt"
+      ? "Moot Court"
+      : name === "Debat"
+      ? "Debates"
+      : name;
+
   return (
     <div className="px-4 py-8 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold text-center mb-6 text-[#346178]">
-        {name === "MoodCourt" ? "Moot Court" : name}
+        {displayName}
       </h1>
 
       <div className="mb-10 text-gray-800 whitespace-pre-line leading-relaxed">
