@@ -1,4 +1,4 @@
-import NewsCard from "@/components/NewsCard";
+import AdminNewsCard from "@/components/AdminNewsCard";
 import db from "@/db/db";
 import NewsDelete from "./NewsDelete";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,7 @@ const AdminNewsPage = async () => {
                   </Link>
                 </Button>
               </div>
-              <NewsCard
+              <AdminNewsCard
                 title={newsItem.title}
                 description={newsItem.description}
                 picture={newsItem.picturePaths}
