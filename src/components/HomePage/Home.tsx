@@ -32,14 +32,14 @@ function Hero() {
       className="flex flex-col justify-center items-center gap-4 my-10 text-center w-full bg-[#346178] p-10 rounded-lg shadow-lg"
     >
       <h1 className="text-5xl font-extrabold text-[#F7F6F7] mb-4">
-        {t("title")}
+        ADA LAW SOCIETY
       </h1>
-      <p className="text-2xl text-[#F7F6F7] max-w-lg mb-6">{t("subtitle")}</p>
+      <p className="text-2xl text-[#F7F6F7] max-w-lg mb-6">"Your Gateway to the Legal World"</p>
       <Button
         onClick={handleLearnMoreClick}
         className="bg-[#A85D71] text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-[#A5596B]"
       >
-        Learn More
+        {t("learnMore")}
       </Button>
     </div>
   );
@@ -53,9 +53,7 @@ function About() {
       className="grid grid-cols-1 sm:grid-cols-2 w-full my-12 px-6 py-10 gap-6 bg-white rounded-lg shadow-md max-w-6xl mx-auto"
     >
       <div className="flex flex-col justify-center px-4 order-2 sm:order-1">
-        <h1 className="text-3xl font-bold mb-4 text-[#346178]">
-          {t("title")}
-        </h1>
+        <h1 className="text-3xl font-bold mb-4 text-[#346178]">{t("title")}</h1>
         <p className="max-w-md text-lg leading-relaxed">{t("description")}</p>
       </div>
       <div className="flex justify-center items-center order-1 sm:order-2">
@@ -85,7 +83,10 @@ function Contact() {
             <Mail className="w-8 h-8" />
           </div>
           <h3 className="text-lg text-[#A85D71] mt-2">Email</h3>
-          <Button variant="link" className="text-customprimary text-lg hover:underline">
+          <Button
+            variant="link"
+            className="text-customprimary text-lg hover:underline"
+          >
             <Link href="mailto:lawsociety@ada.edu.az">
               lawsociety@ada.edu.az
             </Link>

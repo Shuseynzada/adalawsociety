@@ -1,7 +1,6 @@
 {
     "Hero": {
-        "title": "ADA LAW SOCIETY",
-        "subtitle": "Your Gateway to the Legal World"
+        "learnMore": "Learn More"
     },
     "About": {
         "title": "About us",
@@ -14,8 +13,27 @@
     "Contact": {
         "title": "Contact us"
     },
+    "Navbar": {
+        "home": "Home",
+        "about": "About",
+        "news": "News",
+        "contact": "Contact",
+        "team": "ALS Team",
+        "blog": "Blog",
+        "competitions": "Competitions"
+    },
     "Footer": {
         "join": "Join our newsletter to stay up to date on features and releases.",
+        "enterMail": "Enter your email",
+        "subscribe": "Subscribe",
         "follow": "Follow us"
+    },
+    "NewsCard": {
+        "viewEvent": "View event",
+        "close": "Close"
+    },
+    "BlogCard": {
+        "continueReading": "Continue reading",
+        "noSummary": "No summary provided..."
     }
 }

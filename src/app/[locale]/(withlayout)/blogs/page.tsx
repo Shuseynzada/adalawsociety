@@ -1,17 +1,21 @@
-// app/blogs/page.tsx
 import db from "@/db/db";
 import BlogCard from "@/components/BlogCard";
 import { format } from "date-fns";
+import { az, enUS } from "date-fns/locale";
+import { getLocale } from "next-intl/server";
 
 export default async function BlogsPage() {
-  const blogs = await db.blogs.findMany({
-    orderBy: { date: "desc" },
-  });
+  const locale = await getLocale();
+  const localeMap = { az, en: enUS };
+  const selectedLocale = localeMap[locale as keyof typeof localeMap] || enUS;
 
-  // Group blogs by formatted date (e.g., '10 April 2025')
+  const blogs = await db.blogs.findMany({ orderBy: { date: "desc" } });
+
   const groupedBlogs: Record<string, typeof blogs> = {};
   for (const blog of blogs) {
-    const formattedDate = format(new Date(blog.date), "dd MMMM yyyy");
+    const formattedDate = format(new Date(blog.date), "dd MMMM yyyy", {
+      locale: selectedLocale,
+    });
     if (!groupedBlogs[formattedDate]) {
       groupedBlogs[formattedDate] = [];
     }
@@ -33,7 +37,7 @@ export default async function BlogsPage() {
                 author={post.author}
                 title={post.title}
                 date={post.date}
-                summary={post.summary || post.description.slice(0, 200) + "..."}
+                summary={post.summary || ""}
                 commentCount={post.commentCount || 0}
               />
             ))}

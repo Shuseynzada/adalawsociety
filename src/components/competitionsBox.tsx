@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@/i18n/routing";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 const competitions = [
   {
     label: "Debates",
@@ -19,11 +20,14 @@ const competitions = [
 ];
 
 const CompetitionsBox = () => {
+
+  const t = useTranslations("Navbar");
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="bg-custom">
-          Competitions
+          {t("competitions")}
           <ArrowUpRight />
         </Button>
       </DropdownMenuTrigger>

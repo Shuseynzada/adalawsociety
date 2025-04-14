@@ -9,14 +9,15 @@ import { Menu, XIcon } from "lucide-react";
 import CompetitionsBox from "./competitionsBox";
 import useHash from "../lib/useHash";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 const menus = [
-  { title: "Home", href: "/" },
-  { title: "About", href: "/#about" },
-  { title: "News", href: "/#news" },
-  { title: "Contact", href: "/#contact" },
-  { title: "ALS Team", href: "/team" },
-  { title: "Blog", href: "/blogs" },
+  { key: "home", href: "/" },
+  { key: "about", href: "/#about" },
+  { key: "news", href: "/#news" },
+  { key: "contact", href: "/#contact" },
+  { key: "team", href: "/team" },
+  { key: "blog", href: "/blogs" },
 ];
 
 const Navbar: React.FC = () => {
@@ -24,6 +25,8 @@ const Navbar: React.FC = () => {
   const hash = useHash();
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const t = useTranslations("Navbar");
+
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -76,7 +79,7 @@ const Navbar: React.FC = () => {
                 isActiveMenu(menu.href) ? "bg-customprimary text-white" : ""
               }`}
             >
-              {menu.title}
+              {t(menu.key)}
             </Link>
           ))}
         </div>
@@ -121,7 +124,7 @@ const Navbar: React.FC = () => {
                   isActiveMenu(menu.href) ? "bg-customprimary text-white" : ""
                 }`}
               >
-                {menu.title}
+                {t(menu.key)}
               </Link>
             ))}
             <LanguageBox />

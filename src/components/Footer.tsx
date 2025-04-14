@@ -50,7 +50,7 @@ const Footer = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
+              placeholder={t("enterMail")}
               className="text-lg border border-black px-2 py-1 w-full"
               type="email"
               required
@@ -59,7 +59,7 @@ const Footer = () => {
               variant="outline"
               className="border border-black rounded-none"
             >
-              Subscribe
+              {t("subscribe")}
             </Button>
           </form>
           {message && <p className="mt-2">{message}</p>}

@@ -25,6 +25,7 @@ const BlogForm = ({ blog }: BlogFormProps) => {
   const [description, setDescription] = useState(blog?.description || "");
   const [date, setDate] = useState(blog?.date?.toISOString().split("T")[0] || "");
 
+  console.log(summary)
   return (
     <form
       action={(formData) => {

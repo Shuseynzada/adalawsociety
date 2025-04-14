@@ -34,7 +34,7 @@ const AdminBlogsPage = async () => {
               </div>
               <h2 className="text-xl font-semibold text-[#222] mb-2">{blog.title}</h2>
               <p className="text-sm italic text-gray-600">By {blog.author}</p>
-              <p className="text-sm mt-2 text-gray-800 line-clamp-3">{blog.summary || blog.description.slice(0, 150) + "..."}</p>
+              <p className="text-sm mt-2 text-gray-800 line-clamp-3">{blog.summary || "No summary provided"}</p>
               <p className="text-xs mt-2 text-gray-500">
                 {new Date(blog.date).toLocaleDateString("en-US", {
                   day: "2-digit",

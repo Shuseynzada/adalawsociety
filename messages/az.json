@@ -1,7 +1,6 @@
 {
     "Hero": {
-        "title": "ADA LAW SOCIETY",
-        "subtitle": "Hüquq Dünyasına Giriş"
+        "learnMore": "Ətraflı"
     },
     "About": {
         "title": "Haqqımızda",
@@ -14,8 +13,27 @@
     "Contact": {
         "title": "Bizimlə əlaqə saxlayın"
     },
+    "Navbar": {
+        "home": "Ana səhifə",
+        "about": "Haqqımızda",
+        "news": "Xəbərlər",
+        "contact": "Əlaqə",
+        "team": "ALS Komanda",
+        "blog": "Bloq",
+        "competitions": "Müsabiqələr"
+    },
     "Footer": {
-        "join": "Yeni funksiyalar və buraxılışlardan xəbərdar olmaq üçün bülletenimizə qoşulun.",
+        "join": "Yeniliklərdən xəbərdar olmaq üçün bülletenimizə qoşulun",
+        "enterMail": "Mailinizi daxil edin",
+        "subscribe": "Abunə ol",
         "follow": "Bizi izləyin"
+    },
+    "NewsCard": {
+        "viewEvent": "Xəbəri göstər",
+        "close": "Bağla"
+    },
+    "BlogCard": {
+        "continueReading": "Oxumağa davam edin",
+        "noSummary": "Xülasə təqdim edilməyib..."
     }
 }
