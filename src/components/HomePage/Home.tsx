@@ -34,7 +34,9 @@ function Hero() {
       <h1 className="text-5xl font-extrabold text-[#F7F6F7] mb-4">
         ADA LAW SOCIETY
       </h1>
-      <p className="text-2xl text-[#F7F6F7] max-w-lg mb-6">"Your Gateway to the Legal World"</p>
+      <p className="text-2xl text-[#F7F6F7] max-w-lg mb-6">
+        &quot;Your Gateway to the Legal World&quot;
+      </p>
       <Button
         onClick={handleLearnMoreClick}
         className="bg-[#A85D71] text-white font-semibold py-2 px-4 rounded-full shadow-md hover:bg-[#A5596B]"
