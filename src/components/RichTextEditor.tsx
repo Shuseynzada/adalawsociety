@@ -53,7 +53,7 @@ const RichTextEditor = ({ value, onChange }: Props) => {
     if (editor && value !== editor.getHTML()) {
       editor.commands.setContent(value);
     }
-  }, [value]);
+  }, [value,editor]);
 
   if (!editor) return null;
 
