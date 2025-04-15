@@ -10,18 +10,18 @@ import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 const competitions = [
   {
-    label: "Debates",
+    key: "debat",
     path: "/debat",
   },
   {
-    label: "Moot Court",
+    key: "moot",
     path: "/mootcourt",
   },
 ];
 
 const CompetitionsBox = () => {
 
-  const t = useTranslations("Navbar");
+  const t = useTranslations("competitions");
 
   return (
     <DropdownMenu>
@@ -33,8 +33,8 @@ const CompetitionsBox = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         {competitions.map((competition) => (
-          <DropdownMenuItem key={competition.label} asChild>
-            <Link href={competition.path}>{competition.label}</Link>
+          <DropdownMenuItem key={competition.key} asChild>
+            <Link href={competition.path}>{t(competition.key)}</Link>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

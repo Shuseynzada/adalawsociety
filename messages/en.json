@@ -19,8 +19,7 @@
         "news": "News",
         "contact": "Contact",
         "team": "ALS Team",
-        "blog": "Blog",
-        "competitions": "Competitions"
+        "blog": "Blog"
     },
     "Footer": {
         "join": "Join our newsletter to stay up to date on features and releases.",
@@ -35,5 +34,10 @@
     "BlogCard": {
         "continueReading": "Continue reading",
         "noSummary": "No summary provided..."
+    },
+    "competitions": {
+        "competitions": "Competitions",
+        "moot":"Moot Court",
+        "debat":"Debate"
     }
 }

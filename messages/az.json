@@ -19,8 +19,7 @@
         "news": "Xəbərlər",
         "contact": "Əlaqə",
         "team": "ALS Komanda",
-        "blog": "Bloq",
-        "competitions": "Müsabiqələr"
+        "blog": "Bloq"
     },
     "Footer": {
         "join": "Yeniliklərdən xəbərdar olmaq üçün bülletenimizə qoşulun",
@@ -35,5 +34,10 @@
     "BlogCard": {
         "continueReading": "Oxumağa davam edin",
         "noSummary": "Xülasə təqdim edilməyib..."
+    },
+    "competitions": {
+        "competitions": "Müsabiqələr",
+        "moot":"Moot Court",
+        "debat":"Debat"
     }
 }
