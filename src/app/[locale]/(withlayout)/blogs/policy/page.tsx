@@ -23,7 +23,7 @@ export default function BlogPolicyPage() {
         <a
           href="./files/BlogPolicy.pdf"
           target="_blank"
-          rel="noopener noreferrer"w
+          rel="noopener noreferrer"
           className="text-blue-600 underline"
         >
           Download PDF
