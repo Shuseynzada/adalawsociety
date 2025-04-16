@@ -37,7 +37,13 @@
     },
     "competitions": {
         "competitions": "Müsabiqələr",
-        "moot":"Moot Court",
-        "debat":"Debat"
+        "moot": "MootCourt",
+        "debat": "Debat"
+    },
+    "BlogPage": {
+        "policyHeading": "Bloq Qaydaları",
+        "policyDescription": "Zəhmət olmasa",
+        "policyLinkText": "Bloq Qəbul və Redaktə Siyasəti",
+        "policyAfterText": "ilə tanış olun."
     }
 }

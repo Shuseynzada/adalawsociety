@@ -50,6 +50,6 @@ export const config = {
     matcher: [
         '/',
         '/admin/:path*',      // Admin-specific authentication (excluded from i18n)
-        '/(az|en)/:path*'     // Internationalized pathnames
+        '/(az|en|ru)/:path*'     // Internationalized pathnames
     ]
 };

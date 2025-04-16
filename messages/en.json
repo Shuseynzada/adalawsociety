@@ -37,7 +37,13 @@
     },
     "competitions": {
         "competitions": "Competitions",
-        "moot":"Moot Court",
-        "debat":"Debate"
+        "moot": "MootCourt",
+        "debat": "Debate"
+    },
+    "BlogPage": {
+        "policyHeading": "Blog Policy",
+        "policyDescription": "Please read our",
+        "policyLinkText": "Blog Submission & Editing Policy",
+        "policyAfterText": "before contributing."
     }
 }

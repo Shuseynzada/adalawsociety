@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import { azFlagIcon, enFlagIcon, placeholderImg } from "@/assets";
+import { azFlagIcon, enFlagIcon, placeholderImg, ruFlagIcon } from "@/assets";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -31,15 +29,19 @@ const languages: Language[] = [
     value: "az",
     icon: azFlagIcon,
   },
+  {
+    label: "Russian",
+    value: "ru",
+    icon: ruFlagIcon,
+  },
 ];
 
 export function LanguageBox() {
-  const pathname = usePathname(); // Get the current path without router
-  const [language, setLanguage] = useState<string>("en"); // Default to English
+  const pathname = usePathname();
+  const [language, setLanguage] = useState<string>("en");
 
-  // You can derive the current locale from the URL path or a global state
   useEffect(() => {
-    const currentLocale = pathname.split("/")[1]; // Assume locale is the first segment of the path
+    const currentLocale = pathname.split("/")[1];
     if (languages.some((lang) => lang.value === currentLocale)) {
       setLanguage(currentLocale);
     }
@@ -51,7 +53,7 @@ export function LanguageBox() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="bg-transparent">
-          {selectedLanguage && selectedLanguage.icon ? (
+          {selectedLanguage?.icon ? (
             <Image
               src={selectedLanguage.icon}
               alt={selectedLanguage.label}

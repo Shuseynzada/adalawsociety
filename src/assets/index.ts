@@ -2,6 +2,7 @@ import placeholderImg from "./placeholder-image.png"
 import societybg from "./societybg.png"
 import azFlagIcon from "./az.png"
 import enFlagIcon from "./en.png"
+import ruFlagIcon from "./ru.png"
 import mainLogo from "./Law society logo.png"
 import eventPicture1 from "./events/Screenshot 2024-02-11 at 17.25.19.png"
 import eventPicture2 from "./events/Screenshot 2024-02-11 at 17.27.12.png"
@@ -21,6 +22,7 @@ export {
     societybg,
     azFlagIcon,
     enFlagIcon,
+    ruFlagIcon,
     mainLogo,
     eventPicture1,
     eventPicture2,

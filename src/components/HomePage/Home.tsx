@@ -56,7 +56,7 @@ function About() {
     >
       <div className="flex flex-col justify-center px-4 order-2 sm:order-1">
         <h1 className="text-3xl font-bold mb-4 text-[#346178]">{t("title")}</h1>
-        <p className="max-w-md text-lg leading-relaxed">{t("description")}</p>
+        <p className="max-w-md text-lg leading-relaxed text-justify">{t("description")}</p>
       </div>
       <div className="flex justify-center items-center order-1 sm:order-2">
         <Image

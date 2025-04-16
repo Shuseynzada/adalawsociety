@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
       {/* Left Section */}
       <div className="flex items-center flex-1 min-w-0">
         {/* Desktop Menu */}
-        <div className="hidden lg:flex gap-2 flex-shrink-0">
+        <div className="hidden lg:flex gap-2 flex-shrink-0 truncate">
           {menus.map((menu, i) => (
             <Link
               href={menu.href}

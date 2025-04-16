@@ -2,10 +2,13 @@ import db from "@/db/db";
 import BlogCard from "@/components/BlogCard";
 import { format } from "date-fns";
 import { az, enUS } from "date-fns/locale";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 
 export default async function BlogsPage() {
   const locale = await getLocale();
+  const t = await getTranslations("BlogPage");
+
   const localeMap = { az, en: enUS };
   const selectedLocale = localeMap[locale as keyof typeof localeMap] || enUS;
 
@@ -24,6 +27,20 @@ export default async function BlogsPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
+      {/* Blog Policy Section */}
+      <div className="mb-10 bg-blue-50 border border-blue-200 rounded-lg p-6 text-sm text-gray-700">
+        <h2 className="text-lg font-semibold mb-2 text-[#346178]">
+          {t("policyHeading")}
+        </h2>
+        <p className="text-sm text-gray-600 mb-6">
+          {t("policyDescription")}{" "}
+          <Link href="/blogs/policy" className="text-blue-600 underline">
+            {t("policyLinkText")}
+          </Link>{" "}
+          {t("policyAfterText")}
+        </p>
+      </div>
+
       {Object.entries(groupedBlogs).map(([date, posts]) => (
         <div key={date} className="mb-12">
           <h3 className="text-lg font-semibold border-b border-gray-300 pb-2 mb-6 text-gray-700">
