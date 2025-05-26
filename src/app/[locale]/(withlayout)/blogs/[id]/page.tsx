@@ -36,12 +36,13 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
       <div
         className="prose max-w-none text-gray-900 leading-relaxed"
+        style={{ whiteSpace: "pre-wrap" }}
         dangerouslySetInnerHTML={{ __html: blog.description }}
       />
 
-      <div className="mt-10 text-sm text-gray-400">
+      {/* <div className="mt-10 text-sm text-gray-400">
         Comments: {blog.commentCount}
-      </div>
+      </div> */}
     </div>
   );
 }

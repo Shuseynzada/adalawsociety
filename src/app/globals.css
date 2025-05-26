@@ -94,3 +94,7 @@
     @apply font-semibold text-2xl;
   }
 }
+
+.prose p:empty {
+  min-height: 1.5em;
+}
