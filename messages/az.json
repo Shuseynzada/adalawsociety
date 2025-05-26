@@ -22,7 +22,7 @@
         "blog": "Bloq"
     },
     "Footer": {
-        "join": "Yeniliklərdən xəbərdar olmaq üçün bülletenimizə qoşulun",
+        "join": "Yeniliklərdən xəbərdar olmaq üçün bülletenimizə qoşulun",
         "enterMail": "Mailinizi daxil edin",
         "subscribe": "Abunə ol",
         "follow": "Bizi izləyin"
@@ -44,6 +44,9 @@
         "policyHeading": "Bloq Qaydaları",
         "policyDescription": "Zəhmət olmasa",
         "policyLinkText": "Bloq Qəbul və Redaktə Siyasəti",
-        "policyAfterText": "ilə tanış olun."
+        "policyAfterText": "ilə tanış olun.",
+        "by": "Tərəfindən",
+        "summary": "Xülasə:",
+        "date": "Tarix"
     }
 }

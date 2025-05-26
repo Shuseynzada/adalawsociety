@@ -44,6 +44,9 @@
         "policyHeading": "Blog Policy",
         "policyDescription": "Please read our",
         "policyLinkText": "Blog Submission & Editing Policy",
-        "policyAfterText": "before contributing."
+        "policyAfterText": "before contributing.",
+        "by": "By",
+        "summary": "Summary:",
+        "date": "Date"
     }
 }
