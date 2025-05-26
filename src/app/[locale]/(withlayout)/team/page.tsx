@@ -13,10 +13,10 @@ const boardDirectors = [
 const eventCommittee = [
   { name: "Asim Zulfugarli", job: "Event Planner" },
   { name: "Tajira Maharramova", job: "Event Planner" },
-  { name: "Hafiz Bayarli", job: "Logistic Coordinator" },
+  { name: "Hafiz Baylarli", job: "Logistic Coordinator" },
   { name: "Salman Huseynov", job: "Debate Organizer" },
   { name: "Aysel Salimova", job: "Debate Organizer" },
-  {name:"Guler Gurbanli", job:"Debate Specialist"}
+  {name:"Guler Mammadova", job:"Debate Specialist"}
 ];
 
 const blogCommittee = [
